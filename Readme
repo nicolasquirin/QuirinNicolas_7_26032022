@@ -1,0 +1,35 @@
+# GROUPOMANIA
+
+## Installation FRONT-END
+
+Here are the dependancies you need to install:
+
+-
+-
+-
+
+On Windows, these installations require to use PowerShell in administrator mode.
+
+Change directory to "front",
+
+## Usage
+
+Run `npm start`. This should both run the local server and launch your browser.
+
+The app should reload automatically when you make a change to a file.
+
+Use `Ctrl+C` in the terminal to stop the local server.
+
+## Installation BACK-END
+
+On Windows, these installations require to use PowerShell in administrator mode.
+
+Change directory to "back",
+
+Then, run `npm install`.
+
+## Usage
+
+Run `npm start`.
+This should both run the local server on port 3000.
+Use `Ctrl+C` in the terminal to stop the local server.
