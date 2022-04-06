@@ -1,50 +1,43 @@
-// Création du serveur Backend sur le port 3000
+const express = require("express");
+const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
+const userRoutes = require("./routes/user.routes");
+const postRoutes = require("./routes/post.routes");
+require("dotenv").config({ path: "./config/.env" });
 
-const http = require("http");
-const app = require("./app");
+// Utilisation de Mysql Database par defaut pour le projet N°7
+require("./config/dbSql");
 
-const normalizePort = (val) => {
-  const port = parseInt(val, 10);
+// Utilisation de la base de données MogogoDb (Inactive)
+//require("./config/db");
+const { checkUser, requireAuth } = require("./middleware/auth.middleware");
+const cors = require("cors");
 
-  if (isNaN(port)) {
-    return val;
-  }
-  if (port >= 0) {
-    return port;
-  }
-  return false;
-};
-const port = normalizePort(process.env.PORT || "3000");
-app.set("port", port);
+const app = express();
 
-const errorHandler = (error) => {
-  if (error.syscall !== "listen") {
-    throw error;
-  }
-  const address = server.address();
-  const bind =
-    typeof address === "string" ? "pipe " + address : "port: " + port;
-  switch (error.code) {
-    case "EACCES":
-      console.error(bind + " requires elevated privileges.");
-      process.exit(1);
-      break;
-    case "EADDRINUSE":
-      console.error(bind + " is already in use.");
-      process.exit(1);
-      break;
-    default:
-      throw error;
-  }
-};
+app.use(
+  cors({
+    origin: (origin, callback) => callback(null, true),
+    credentials: true,
+  })
+);
 
-const server = http.createServer(app);
+// MAJ (body-parser) fait parti integrante de Express/ plus besoin de l'appellé
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
 
-server.on("error", errorHandler);
-server.on("listening", () => {
-  const address = server.address();
-  const bind = typeof address === "string" ? "pipe " + address : "port " + port;
-  console.log("Listening on " + bind);
+// jwt
+app.get("*", checkUser);
+app.get("/jwtid", requireAuth, (req, res) => {
+  res.status(200).send(res.locals.user._id);
 });
 
-server.listen(port);
+// routes
+app.use("/api/user", userRoutes);
+app.use("/api/post", postRoutes);
+
+// server
+app.listen(process.env.PORT, () => {
+  console.log(`Listening on port ${process.env.PORT}`);
+});
