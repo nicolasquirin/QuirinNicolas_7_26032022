@@ -26,7 +26,7 @@ module.exports.profilUsers = async (req, res) => {
 // Recupération des données profil utilisateur SQL => localhost:5000/api/user/(id)
 //
 
-module.exports.profilUserId = async (req, res) => {
+module.exports.profilUserById = async (req, res) => {
   try {
     const id = req.params.id;
 
