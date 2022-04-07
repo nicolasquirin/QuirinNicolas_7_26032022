@@ -1,6 +1,5 @@
 // Structure format user base de données SQL
 
-
 /*
 AUTHENTIFICATION_USERS
 

@@ -51,8 +51,7 @@ module.exports.signIn = (req, res) => {
         console.log(error);
         res.json({ error });
       } else {
-        console.log("password");
-        console.log(results);
+
 
         // Si e-mail inexistant =>
         if (results == 0) {
@@ -63,7 +62,6 @@ module.exports.signIn = (req, res) => {
         bcrypt
           .compare(req.body.password, results[0].password)
           .then((controlPassword) => {
-            console.log(controlPassword);
 
             //Si mot de passe incorrect
             if (!controlPassword) {
@@ -72,7 +70,7 @@ module.exports.signIn = (req, res) => {
 
             const token = jwt.sign(
               { userId: results[0].id },
-              `${process.env.JWT_TOKEN_SECRET}`,
+              `${process.env.TOKEN_SECRET}`,
               { expiresIn: "12h" }
             );
 

@@ -1,6 +1,3 @@
-// Variable d'environnement
-const dotenv = require("dotenv");
-dotenv.config();
 
 // Importation de MySql
 const mysql = require("mysql");
