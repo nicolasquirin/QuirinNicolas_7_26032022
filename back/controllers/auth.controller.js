@@ -5,26 +5,17 @@ const cryptoJS = require("crypto-js");
 const { signUpErrors, signInErrors } = require("../utils/errors.utils");
 const mysqlconnection = require("../config/dbSql");
 
-const maxAge = 3 * 24 * 60 * 60 * 1000;
-
-const createToken = (id) => {
-  return jwt.sign({ id }, process.env.TOKEN_SECRET, {
-    expiresIn: maxAge,
-  });
-};
-
-// Insertion E-mail et mot de passe dans la base de données Mysql => //localhost:5000/api/user/register
-module.exports.signUp = async (req, res) => {
+//
+//Insertion E-mail et mot de passe dans la base de données Mysql => //localhost:5000/api/user/register
+//
+module.exports.signUp = (req, res) => {
   const { email, password } = req.body;
 
-  const hashEmail = cryptoJS
-    .HmacSHA512(email, `${process.env.CRYPTOJS_TOKEN_KEY}`)
-    .toString();
   bcrypt
     .hash(password, 10)
     .then((hash) => {
       const user = {
-        email: hashEmail,
+        email: email,
         password: hash,
       };
 
@@ -34,26 +25,24 @@ module.exports.signUp = async (req, res) => {
         (error, results) => {
           if (error) {
             console.log(error);
-            res.status(200).json({ message: "Email deja enregistré" });
+            res.json({ message: "Email deja enregistré" });
           } else {
             console.log(results);
-            res.json("utilisateur enregistré");
+            res.json({ message: "utilisateur enregistré" });
           }
         }
       );
     })
-    .catch((error) => res.status(500).json({ error }));
+    .catch((error) => res.status(500).json({ error }).send(console.log(error)));
 };
 //
 //// Selection E-mail dans la base de données Mysql => //localhost:5000/api/user/login
 //
+
 module.exports.signIn = (req, res) => {
   // Recherche de l'utilisateur deja present dans la base de données
-  const hashEmail = cryptoJS
-    .HmacSHA512(req.body, `${process.env.CRYPTOJS_TOKEN_KEY}`)
-    .toString();
+  const { email, password } = req.body;
 
-  const email = hashEmail;
   mysqlconnection.query(
     `SELECT * FROM users WHERE email = ? `,
     email,
@@ -62,20 +51,23 @@ module.exports.signIn = (req, res) => {
         console.log(error);
         res.json({ error });
       } else {
+        console.log("password");
+        console.log(results);
+
         // Si e-mail inexistant =>
         if (results == 0) {
-          return res.status(404).json({ error: "utilisateur non trouvé" });
+          return res.status(404).json({ error: "Email inexistant" });
         }
 
         //Comparaison du mot de passe créer et stocké
         bcrypt
-          .compare(req.body.password, results)
+          .compare(req.body.password, results[0].password)
           .then((controlPassword) => {
             console.log(controlPassword);
 
             //Si mot de passe incorrect
             if (!controlPassword) {
-              return res.staus(401).jsin({ error: "Mot de passe incorrect" });
+              return res.status(401).json({ message: "Mot de passe incorrect" });
             }
 
             const token = jwt.sign(
@@ -84,9 +76,8 @@ module.exports.signIn = (req, res) => {
               { expiresIn: "12h" }
             );
 
-            console.log(token);
 
-            // Renvoie du userId et le token utilisateur
+            // Renvoie du userId et token utilisateur
             res.status(201).json({ userId: results[0].id, token });
           })
           .catch((err) => res.status(500).json({ error }));
@@ -95,7 +86,12 @@ module.exports.signIn = (req, res) => {
   );
 };
 
+
+//
+//// Supression du jeton => //localhost:5000/api/user/logout
+//
+
 module.exports.logout = (req, res) => {
-  res.cookie("jwt", "", { maxAge: 1 });
-  res.redirect("/");
+  res.clearCookie("jwt");
+  res.status(200).json("OUT");
 };

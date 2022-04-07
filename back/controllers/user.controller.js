@@ -1,6 +1,6 @@
-
-
 const mysqlconnection = require('../config/dbSql')
+
+
 
 module.exports.getAllUsers = async (req, res) => {
   const users = await UserModel.find().select("-password");
