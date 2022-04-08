@@ -144,7 +144,7 @@ module.exports.profilUpdate = (req, res) => {
 };
 
 //
-// Modification des données profil utilisateur SQL => localhost:5000/api/user/userId(N°)
+// Supression des données profil utilisateur SQL => localhost:5000/api/user/userId(N°)
 //
 
 module.exports.profilDeleted = (req, res) => {
