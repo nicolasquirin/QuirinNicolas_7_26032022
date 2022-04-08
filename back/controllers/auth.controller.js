@@ -28,7 +28,7 @@ module.exports.signUp = (req, res) => {
             res.json({ message: "Email deja enregistré" });
           } else {
             console.log(results);
-            res.json({ message: "utilisateur enregistré" });
+            res.json({ message: "Nouvel utilisateur enregistré" });
           }
         }
       );

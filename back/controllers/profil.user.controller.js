@@ -23,7 +23,7 @@ module.exports.profilUsers = async (req, res) => {
 };
 
 //
-// Recupération des données profil utilisateur SQL => localhost:5000/api/user/(id)
+// Recupération des données profil utilisateur SQL => localhost:5000/api/user/userId(N°)
 //
 
 module.exports.profilUserById = async (req, res) => {
@@ -46,7 +46,146 @@ module.exports.profilUserById = async (req, res) => {
   }
 };
 
+
+
+//
+// Recupération des données profil utilisateur SQL => localhost:5000/api/user/userId(N°)
+//
+
+module.exports.profilUserById = async (req, res) => {
+  try {
+    const id = req.params.id;
+
+    const profilUsers = await mysqlconnection.query(
+      "SELECT * FROM `profil_users` WHERE `profil_user_userid` = ?",
+      [id],
+      (error, results) => {
+        if (error) {
+          res.json({ error });
+        } else {
+          res.status(200).json({ results });
+        }
+      }
+    );
+  } catch (err) {
+    res.status(500).json({ error: err });
+  }
+};
+
+//
+// Modification des données profil utilisateur SQL => localhost:5000/api/user/userId(N°)
+//
+
+
+
+module.exports.profilCreated = async (req, res) => { // A REVOIR !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! SI je fait pas un login avec nom prenom et photo
+
+
+const userficheObject = JSON.parse(req.body.ficheUser);
+
+    const { userid, nom, prenom } = userficheObject;
+
+    const photo = `${req.protocol}://${req.get("host")}/images/${
+      req.file.filename
+    }`;
+
+    const ficheUser = new FicheUser(userid, nom, prenom, photo);
+
+
+
+  try {
+
+
+    const querySql = `INSERT INTO profil_users( profil_user_userid, profil_nom, profil_prenom, profil_photo ) 
+      VALUES (?)`;
+
+      const valuesTable = [userid, nom, prenom, photo];
+
+
+    const ficheUser = await mysqlconnection.query(querySql, [valuesTable], (error, results) => {
+        if (error) {
+          res.status(404).json({ error });
+        } else {
+          res.status(200).json({ results });
+        }
+      }
+    );
+  } catch (err) {
+    res.status(500).json({ error: err });
+  }
+};
+
+
+
+
+//
+// Modification des données profil utilisateur SQL => localhost:5000/api/user/userId(N°)
+//
+
+module.exports.profilUpdate = (req, res) => {
+  try {
+    const { profil_nom, profil_prenom, profil_photo } = req.body;
+    const { id: userid } = req.params;
+
+    mysqlconnection.query(
+      `UPDATE profil_users SET profil_nom ="${profil_nom}", profil_prenom = "${profil_prenom}", profil_photo = "${profil_photo}"
+     WHERE profil_user_userid = ${userid}`,
+      (error, results) => {
+        if (error) {
+          res.status(404).json({ error });
+        } else {
+          res.status(200).json({ results });
+        }
+      }
+    );
+  } catch (err) {
+    res.status(500).json({ error: err });
+  }
+};
+
+//
+// Modification des données profil utilisateur SQL => localhost:5000/api/user/userId(N°)
+//
+
+module.exports.profilDeleted = (req, res) => {
+  try {
+    const id = req.params;
+
+    const profilDeleted = mysqlconnection.query(
+      "SELECT * FROM `profil_users` WHERE `profil_user_userid` = ?",
+      [id],
+      (error, results) => {
+        if (error) {
+          res.json({ error });
+        } else {
+          res.status(200).json({ results });
+        }
+      }
+    );
+  } catch (err) {
+    res.status(500).json({ error: err });
+  }
+};
+
 /*
+const querySql = `INSERT INTO profil_users( profil_user_userid, profil_nom, profil_prenom, profil_photo ) 
+      VALUES (21,"zarra", "maylis", "urlrrvsdzerg")`;
+    mysqlconnection.query(querySql, (error, results) => {
+        if (error) {
+          res.status(404).json({ error });
+        } else {
+          res.status(200).json({ results });
+        }
+      }
+    );
+  } catch (err) {
+    res.status(500).json({ error: err });
+  }
+
+
+
+
+
 
 
 

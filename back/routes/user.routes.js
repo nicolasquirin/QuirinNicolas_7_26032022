@@ -11,13 +11,13 @@ router.post("/register", authController.signUp);
 router.post("/login", authController.signIn);
 router.get("/logout", authController.logout);
 
-// user DB
+// users SQL DB
 router.get("/", auth, userController.profilUsers);
-router.get("/:id", auth, userController.profilUserById);
-//router.put("/:id", userController.updateUser); // LA SUITE !!!!!!!
+router.get("/userId:id", auth, userController.profilUserById);
+router.post("/userId:id",auth, userController.profilCreated);
+router.put("/userId:id",auth, userController.profilUpdate);
 //router.delete("/:id", userController.deleteUser);
-//router.patch("/follow/:id", userController.follow);
-//router.patch("/unfollow/:id", userController.unfollow);
+
 
 // upload
 router.post("/upload", upload.single("file"), uploadController.uploadProfil);

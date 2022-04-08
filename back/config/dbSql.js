@@ -1,7 +1,7 @@
 
 // Importation de MySql
 const mysql = require("mysql");
-console.log(mysql);
+
 
 //Connection a la base de données MySql
 const mysqlconnection = mysql.createConnection({
