@@ -62,7 +62,7 @@ exports.createPost = (req, res, next) => {
 };
 
 //
-// Modification des données Postde la BD SQL => localhost:5000/api/user/userId(N°)
+// Modification des données Post de la BD SQL => localhost:5000/api/user/userId(N°)
 //
 
 module.exports.updatePost = (req, res) => {
@@ -91,8 +91,8 @@ module.exports.updatePost = (req, res) => {
 //
 exports.deletePostById = (req, res, next) => {
   const { id: id_post } = req.params;
-  const sql = `DELETE FROM post WHERE id_user = ${id_post}`;
-  mysqlconnection.query(sql, (err, result) => {
+
+  mysqlconnection.query(`DELETE FROM post WHERE id_user = ${id_post}`, (err, result) => {
     if (err) {
       res.status(404).json({ err });
       throw err;

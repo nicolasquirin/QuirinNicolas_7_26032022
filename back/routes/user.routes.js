@@ -12,12 +12,11 @@ router.post("/login", authController.signIn);
 router.get("/logout", authController.logout);
 
 // users SQL DB
-router.get("/", auth, userController.profilUsers);
-router.get("/userId:id", auth, userController.profilUserById);
-router.post("/userId:id",auth, userController.profilCreated);
-router.put("/userId:id",auth, userController.profilUpdate);
-//router.delete("/:id", userController.deleteUser);
-
+router.get("/", auth, userController.profilUsers); //localhost:5000/api/user/
+router.get("/:id", auth, userController.profilUserById);
+router.post("/:id", auth, userController.profilCreated);
+router.put("/:id", auth, userController.profilUpdate);
+router.delete("/:id", userController.deleteProfilById);
 
 // upload
 router.post("/upload", upload.single("file"), uploadController.uploadProfil);
