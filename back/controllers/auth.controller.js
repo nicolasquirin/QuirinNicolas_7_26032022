@@ -51,8 +51,6 @@ module.exports.signIn = (req, res) => {
         console.log(error);
         res.json({ error });
       } else {
-
-
         // Si e-mail inexistant =>
         if (results == 0) {
           return res.status(404).json({ error: "Email inexistant" });
@@ -62,10 +60,11 @@ module.exports.signIn = (req, res) => {
         bcrypt
           .compare(req.body.password, results[0].password)
           .then((controlPassword) => {
-
             //Si mot de passe incorrect
             if (!controlPassword) {
-              return res.status(401).json({ message: "Mot de passe incorrect" });
+              return res
+                .status(401)
+                .json({ message: "Mot de passe incorrect" });
             }
 
             const token = jwt.sign(
@@ -73,7 +72,6 @@ module.exports.signIn = (req, res) => {
               `${process.env.TOKEN_SECRET}`,
               { expiresIn: "12h" }
             );
-
 
             // Renvoie du userId et token utilisateur
             res.status(201).json({ userId: results[0].id, token });
@@ -83,7 +81,6 @@ module.exports.signIn = (req, res) => {
     }
   );
 };
-
 
 //
 //// Supression du jeton => //localhost:5000/api/user/logout

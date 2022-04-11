@@ -4,7 +4,7 @@ const cookieParser = require("cookie-parser");
 const userRoutes = require("./routes/user.routes");
 const postRoutes = require("./routes/post.routes");
 const commentRoutes = require("./routes/comment.routes");
-const auth = require("./middleware/auth.middleware")
+const auth = require("./middleware/auth.middleware");
 require("dotenv").config({ path: "./config/.env" });
 
 // Utilisation de Mysql Database par defaut pour le projet N°7
@@ -14,17 +14,22 @@ const cors = require("cors");
 
 const app = express();
 
-app.use(
-  cors({
-    origin: (origin, callback) => callback(null, true),
-    credentials: true,
-  })
-);
+const corsOptions = {
+  origin: process.env.CLIENT_URL,
+  credentials: true,
+  allowedHeaders: ["sessionId", "Content-Type"],
+  exposedHeaders: ["sessionId"],
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  preflightContinue: false,
+};
+app.use(cors(corsOptions));
 
-// MAJ (body-parser) fait parti integrante de Express/ plus besoin de l'appellé
+
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
+
 
 //Jwt
 
