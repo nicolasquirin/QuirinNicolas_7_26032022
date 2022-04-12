@@ -14,7 +14,7 @@ const Profil = () => {
           <div className="log-container">
             <Log signin={false} singup={true} />
             <div className="img-container">
-              <img src="./img/log.svg" alt="Un ordinateur vérrouiller ....." />
+              <img src="./img/login.webp" alt="Un ordinateur vérrouiller ....." />
             </div>
           </div>
         )}

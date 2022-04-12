@@ -1,5 +1,5 @@
 import React from "react";
-import ReactDOM from 'react-dom/client';
+import ReactDOM from "react-dom/client";
 import App from "./App";
 import "./styles/index.scss";
 import { Provider } from "react-redux";
@@ -9,10 +9,7 @@ import rootReducer from "./reducers";
 
 // dev tools
 
-
-
 const store = createStore(rootReducer);
-
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(

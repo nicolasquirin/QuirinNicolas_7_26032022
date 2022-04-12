@@ -1,21 +1,30 @@
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
+const mysqlconnection = require("../config/dbSql");
 
 module.exports = (req, res, next) => {
   try {
-    const token = req.headers.authorization.split(" ")[1]; // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    const decodedToken = jwt.verify(token, process.env.TOKEN_SECRET);
-    const userId = decodedToken.userId;
+    if (req.cookies.jwt) {
+      const { jwt: token } = req.cookies;
+      const decodedToken = jwt.verify(token, process.env.TOKEN_SECRET);
+      const { usersid: id } = decodedToken;
 
-    if (req.body.userId && req.body.userId !== userId) {
-      res.status(401).json({ message: "Mauvais identifiant" });
+      mysqlconnection.query(
+        `SELECT * FROM users WHERE id = ${id}`,
+        (err, result) => {
+          if (err) res.status(204).json(err);
+          else {
+            next();
+          }
+        }
+      );
     } else {
-      next();
+      res.clearCookie();
+      res.status(401).json({ message: "Else > Unauthorized" });
     }
-    console.log(token);
-  } catch (error) {
-    res
-      .status(401)
-      .json({ message: "Jeton utilisateur non autentifié", error });
+  } catch (err) {
+    res.clearCookie();
+    console.log(err);
+    res.status(401).json({ message: "Catch > Unauthorized" });
   }
 };

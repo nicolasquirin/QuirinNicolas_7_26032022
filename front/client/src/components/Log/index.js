@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import SignInForm from "./SignInForm";
 import SignUpForm from "./SignUpForm";
 
-const Log = ( props) => {
-  // 2 possibilité de State => SignIn ou SignUp systeme ON/OFF
+const Log = (props) => {
   const [signUpModal, setSignUpModal] = useState(props.signup);
   const [signInModal, setSignInModal] = useState(props.signin);
 
