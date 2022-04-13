@@ -34,6 +34,7 @@ app.use(cookieParser());
 app.get("*", auth);
 app.get("/jwtid", (req, res) => {
   res.status(200).send(res.locals.user._id);
+  console.log(res.locals.user._id);
 });
 
 // routes

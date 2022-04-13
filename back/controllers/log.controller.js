@@ -2,7 +2,6 @@ const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 require("dotenv").config();
 const mysqlconnection = require("../config/dbSql");
-const { signUpErrors, signInErrors } = require('../utils/errors.utils');
 
 //
 //Insertion E-mail et mot de passe dans la base de données Mysql => //localhost:5000/api/user/register
@@ -65,7 +64,7 @@ module.exports.signIn = (req, res) => {
             // Supression du password pour une invisibilité total coté front-end
             results[0].password;
 
-            res.cookie("jwt", token);
+            res.cookie("jwt", token,{ httpOnly: true, maxAge});
             res.status(200).json({
               user: results[0],
               token: jwt.sign({ userId: user_id }, process.env.TOKEN_SECRET, {

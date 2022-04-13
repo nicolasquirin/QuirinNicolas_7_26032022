@@ -7,7 +7,6 @@ const SignInForm = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    const emailError = document.querySelector(".email.error");
     const passwordError = document.querySelector(".password.error");
 
     axios({
