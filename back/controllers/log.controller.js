@@ -67,8 +67,8 @@ module.exports.signIn = (req, res) => {
             res.cookie("jwt", token,{ httpOnly: true, maxAge});
             res.status(200).json({
               user: results[0],
-              token: jwt.sign({ userId: user_id }, process.env.TOKEN_SECRET, {
-                expiresIn: "24h",
+              token: jwt.sign({ user_id }, process.env.TOKEN_SECRET, {
+                expiresIn: maxAge,
               }),
             });
           }

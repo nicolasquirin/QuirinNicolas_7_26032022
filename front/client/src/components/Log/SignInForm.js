@@ -19,12 +19,10 @@ const SignInForm = () => {
       },
     })
       .then((res) => {
-        console.log(res);
         if (res.data.message) {
-          
           passwordError.innerHTML = res.data.message;
         } else {
-          window.location = "/trending";
+          console.log(res.data.user.id_user);
         }
       })
       .catch((err) => {

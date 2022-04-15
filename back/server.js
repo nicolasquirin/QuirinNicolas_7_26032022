@@ -31,10 +31,9 @@ app.use(cookieParser());
 
 //Jwt
 
-app.get("*", auth);
-app.get("/jwtid", (req, res) => {
-  res.status(200).send(res.locals.user._id);
-  console.log(res.locals.user._id);
+app.get("*"); // A faire peut etre un CHECK USER !!!!!!!!!!!!!!!!!!!!!!
+app.get("/jwtid", auth, (req, res) => {
+  res.status(200).send(res.locals.user);
 });
 
 // routes
