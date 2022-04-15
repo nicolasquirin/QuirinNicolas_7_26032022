@@ -18,11 +18,14 @@ const SignInForm = () => {
         password,
       },
     })
+    // Stockage de l'ID utilisateur dans le local Storage si email et Mdp Correct
       .then((res) => {
         if (res.data.message) {
           passwordError.innerHTML = res.data.message;
         } else {
-          console.log(res.data.user.id_user);
+        console.log(res.data);
+        localStorage.id_user = JSON.stringify(res.data.user.id_user);
+        window.location.href = "/";
         }
       })
       .catch((err) => {
