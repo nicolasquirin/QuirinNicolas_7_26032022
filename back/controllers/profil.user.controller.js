@@ -30,32 +30,8 @@ module.exports.profilUserById = async (req, res) => {
   try {
     const id = req.params.id;
 
-    const profilUsers = await mysqlconnection.query(
-      "SELECT * FROM `profil_users` WHERE `profil_user_userid` = ?",
-      [id],
-      (error, results) => {
-        if (error) {
-          res.json({ error });
-        } else {
-          res.status(200).json({ results });
-        }
-      }
-    );
-  } catch (err) {
-    res.status(500).json({ error: err });
-  }
-};
-
-//
-// Recupération des données profil utilisateur SQL => localhost:5000/api/user/userId(N°)
-//
-
-module.exports.profilUserById = async (req, res) => {
-  try {
-    const id = req.params.id;
-
-    const profilUsers = await mysqlconnection.query(
-      "SELECT * FROM `profil_users` WHERE `profil_user_userid` = ?",
+    const profilUser = await mysqlconnection.query(
+      "SELECT * FROM `profil_users` WHERE `id_user` = ?",
       [id],
       (error, results) => {
         if (error) {
@@ -79,19 +55,19 @@ module.exports.profilCreated = async (req, res) => {
 
   const userficheObject = JSON.parse(req.body.ficheUser);
 
-  const { userid, nom, prenom } = userficheObject;
+  const { nom, prenom } = userficheObject;
 
   const photo = `${req.protocol}://${req.get("host")}/images/${
     req.file.filename
   }`;
 
-  const ficheUser = new FicheUser(userid, nom, prenom, photo);
+  const ficheUser = new FicheUser( nom, prenom, photo);
 
   try {
-    const querySql = `INSERT INTO profil_users( profil_user_userid, profil_nom, profil_prenom, profil_photo ) 
+    const querySql = `INSERT INTO profil_users( profil_nom, profil_prenom, profil_photo ) 
       VALUES (?)`;
 
-    const valuesTable = [userid, nom, prenom, photo];
+    const valuesTable = [nom, prenom, photo];
 
     const ficheUser = await mysqlconnection.query(
       querySql,
@@ -116,11 +92,11 @@ module.exports.profilCreated = async (req, res) => {
 module.exports.profilUpdate = (req, res) => {
   try {
     const { profil_nom, profil_prenom, profil_photo } = req.body;
-    const { id: userid } = req.params;
+    const { id: id_user } = req.params;
 
     mysqlconnection.query(
       `UPDATE profil_users SET profil_nom ="${profil_nom}", profil_prenom = "${profil_prenom}", profil_photo = "${profil_photo}"
-     WHERE profil_user_userid = ${userid}`,
+     WHERE id_user = ${id_user}`,
       (error, results) => {
         if (error) {
           res.status(404).json({ error });
@@ -139,10 +115,10 @@ module.exports.profilUpdate = (req, res) => {
 //
 
 module.exports.deleteProfilById = (req, res) => {
-  const { id: id_pofil_users } = req.params;
+  const { id: id_user } = req.params;
 
   mysqlconnection.query(
-    `DELETE FROM profil_users WHERE profil_user_userid = ${id_pofil_users}`,
+    `DELETE FROM profil_users WHERE id_user = ${id_user}`,
     (error, results) => {
       if (error) {
         res.json({ error });

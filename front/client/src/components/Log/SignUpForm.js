@@ -39,9 +39,9 @@ const SignUpForm = () => {
       })
         .then((res) => {
           console.log(res);
-          if (res.data.errors) {
-            emailError.innerHTML = res.data.errors.email;
-            passwordError.innerHTML = res.data.errors.password;
+          if (res.data.message) {
+            emailError.innerHTML = res.data.message;
+            passwordError.innerHTML = res.data.message;
           } else {
             setFormSubmit(true);
           }
@@ -50,6 +50,7 @@ const SignUpForm = () => {
     }
   };
 
+  //Si form Submit est true => affichage de Login a l'utilisateur
   return (
     <>
       {formSubmit ? (
