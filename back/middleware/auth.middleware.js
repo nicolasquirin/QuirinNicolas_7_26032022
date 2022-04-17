@@ -13,7 +13,7 @@ module.exports = (req, res, next) => {
       throw "Invalid user ID";
     } else {
       next();
-      console.log(token.userId);
+      console.log(token);
     }
   } catch {
     res.status(401).json({

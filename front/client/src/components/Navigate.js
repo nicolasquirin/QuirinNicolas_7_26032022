@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import Logout from "./Log/Logout";
 
 
-const Navbar = () => {
+const Navigate = () => {
   const uid = useContext(UidContext);
   const userData = useSelector((state) => state.userReducer);
 
@@ -47,4 +47,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default Navigate;

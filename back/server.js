@@ -29,11 +29,12 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-//Jwt
+//Route Authentification 
+app.get("/jwtid", auth, (req, res) => {
+  res.status(200).send(res.locals.user._id);
+});
 
-
-
-// routes
+// Routes => Log - User - Post - Comment
 app.use("/api/user", logRoutes);
 app.use("/api/user", userRoutes);
 app.use("/api/post", postRoutes);
