@@ -4,6 +4,8 @@ import SignInForm from "./SignInForm";
 
 const SignUpForm = () => {
   const [formSubmit, setFormSubmit] = useState(false);
+  const [profil_nom, setNom] = useState("");
+  const [profil_prenom, setPrenom] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [controlPassword, setControlPassword] = useState("");
@@ -11,6 +13,8 @@ const SignUpForm = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
     const terms = document.getElementById("terms");
+    const profil_nomError = document.querySelector(".nom.error");
+    const profil_prenomError = document.querySelector(".prenom.error");
     const emailError = document.querySelector(".email.error");
     const passwordError = document.querySelector(".password.error");
     const passwordConfirmError = document.querySelector(
@@ -19,6 +23,8 @@ const SignUpForm = () => {
     const termsError = document.querySelector(".terms.error");
 
     passwordConfirmError.innerHTML = "";
+    profil_nomError.innerHTML = "";
+    profil_prenomError.innerHTML = "";
     termsError.innerHTML = "";
 
     if (password !== controlPassword || !terms.checked) {
@@ -33,6 +39,8 @@ const SignUpForm = () => {
         method: "post",
         url: `http://localhost:5000/api/user/register`,
         data: {
+          profil_nom,
+          profil_prenom,
           email,
           password,
         },
@@ -63,6 +71,28 @@ const SignUpForm = () => {
         </>
       ) : (
         <form action="" onSubmit={handleRegister} id="sign-up-form">
+          <label htmlFor="profil_nom">Nom</label>
+          <br />
+          <input
+            type="text"
+            name="profil_nom"
+            id="profil_nom"
+            onChange={(e) => setNom(e.target.value)}
+            value={profil_nom}
+          />
+          <div className="nom error"></div>
+          <br />
+          <label htmlFor="profil_prenom">Prénom</label>
+          <br />
+          <input
+            type="text"
+            name="profil_prenom"
+            id="profil_prenom"
+            onChange={(e) => setPrenom(e.target.value)}
+            value={profil_prenom}
+          />
+          <div className="prenom error"></div>
+          <br />
           <label htmlFor="email">Email</label>
           <br />
           <input

@@ -7,12 +7,14 @@ const mysqlconnection = require("../config/dbSql");
 //Insertion E-mail et mot de passe dans la base de données Mysql => //localhost:5000/api/user/register
 //
 module.exports.signUp = (req, res) => {
-  const { email, password } = req.body;
+  const { profil_nom, profil_prenom, email, password } = req.body;
 
   bcrypt
     .hash(password, 10)
     .then((hash) => {
       const user = {
+        profil_nom: profil_nom,
+        profil_prenom: profil_prenom,
         email: email,
         password: hash,
       };
@@ -64,7 +66,7 @@ module.exports.signIn = (req, res) => {
             // Supression du password pour une invisibilité total coté front-end
             results[0].password;
 
-            res.cookie("jwt", token,{ httpOnly: true, maxAge});
+            res.cookie("jwt", token, { httpOnly: true, maxAge });
             res.status(200).json({
               user: results[0],
               token: jwt.sign({ user_id }, process.env.TOKEN_SECRET, {

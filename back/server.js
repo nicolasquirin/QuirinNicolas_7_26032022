@@ -7,6 +7,7 @@ const logRoutes = require("./routes/log.routes");
 const commentRoutes = require("./routes/comment.routes");
 const auth = require("./middleware/auth.middleware");
 require("dotenv").config({ path: "./config/.env" });
+const path = require("path");
 
 // Utilisation de Mysql Database par defaut pour le projet N°7
 require("./config/dbSql");
@@ -30,9 +31,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 //Route Authentification 
+
 app.get("/jwtid", auth, (req, res) => {
   res.status(200).send(res.locals.user._id);
 });
+
+app.use('/images', express.static(path.join(__dirname, 'images')));
 
 // Routes => Log - User - Post - Comment
 app.use("/api/user", logRoutes);
