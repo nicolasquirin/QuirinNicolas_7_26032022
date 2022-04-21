@@ -77,7 +77,7 @@ const NewPostForm = () => {
           </div>
           <NavLink exact to="/profil">
             <div className="user-info">
-              <img src="./img/profil_none.jpg" alt="user-img" />
+              <img src={userData.photo} alt="user-img" />
             </div>
           </NavLink>
           <div className="post-form">

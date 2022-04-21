@@ -15,19 +15,20 @@ export const getUser = (uid) => {
   };
 };
 
-export const uploadPicture = (file, id) => {
+export const uploadPicture = (data, id) => {
   return (dispatch) => {
     return axios
-      .post(`${process.env.REACT_APP_API_URL}api/user/upload/`, file)
+      .post(`${process.env.REACT_APP_API_URL}api/user/upload/${id}`, data)
       .then((res) => {
-        console.log(file);
-
         return axios
 
           .get(`${process.env.REACT_APP_API_URL}api/user/${id}`)
           .then((res) => {
-            console.log(file);
-            dispatch({ type: UPLOAD_PICTURE, payload: res.data.results[0] });
+            dispatch({
+              type: UPLOAD_PICTURE,
+              payload: res.data.results[0].photo,
+            });
+            window.location.href = "/login";
           });
       })
       .catch((err) => console.log(err));
