@@ -1,6 +1,5 @@
 import axios from "axios";
 
-
 export const GET_USER = "GET_USER";
 export const UPLOAD_PICTURE = "UPLOAD_PICTURE";
 
@@ -16,15 +15,12 @@ export const getUser = (uid) => {
   };
 };
 
-export const uploadPicture = ( file, id) => {
+export const uploadPicture = (file, id) => {
   return (dispatch) => {
-
     return axios
       .post(`${process.env.REACT_APP_API_URL}api/user/upload/`, file)
       .then((res) => {
-
-        dispatch(uploadPicture(file, file.name));
-        console.log(file.name);
+        console.log(file);
 
         return axios
 

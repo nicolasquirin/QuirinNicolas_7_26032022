@@ -51,20 +51,28 @@ module.exports.profilUserById = async (req, res) => {
 //
 
 module.exports.profilUser = (req, res) => {
-  let { photo } = req.body;
-  //const { id: id_user } = req.params;
-  photo = `${req.protocol}://${req.get("host")}/images/${req.file}`;
-  console.log(req.file);
-  mysqlconnection.query(
-    `UPDATE users SET photo = "${photo}"`,
-    (error, results) => {
-      if (error) {
-        res.status(404).json({ error });
-      } else {
-        res.status(200).json({ results });
+  try {
+    let { file } = req.file;
+
+    const { id: id_user } = req.params;
+
+    file = `${req.protocol}://${req.get("host")}/images/${req.file.filename}`;
+
+    console.log(req.file.filename);
+
+    mysqlconnection.query(
+      `UPDATE users SET photo = "${file}"`,
+      (error, results) => {
+        if (error) {
+          res.status(404).json({ error });
+        } else {
+          res.status(200).json({ results });
+        }
       }
-    }
-  );
+    );
+  } catch {
+    if (req.file == undefined) res.status(500).json(error);
+  }
 };
 
 //
