@@ -3,6 +3,7 @@ import { UidContext } from "../components/AppContext";
 import LeftNav from "../components/LeftNav";
 import NewPostForm from "../components/Post/NewPostForm";
 import Log from "../components/Log";
+import Thread from "../components/Thread";
 
 
 
@@ -13,6 +14,7 @@ const Home = () => {
     <div className="home">
       <LeftNav />
       <div className="main">
+        <Thread/>
         <div className="home-header">
         {uid ? <NewPostForm /> : <Log signin={true} signup={false} />}
         </div>

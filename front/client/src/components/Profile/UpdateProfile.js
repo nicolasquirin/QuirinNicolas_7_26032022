@@ -5,6 +5,7 @@ import UploadImg from "./UploadImg";
 
 const UpdateProfile = () => {
   const userData = useSelector((state) => state.userReducer);
+  const usersData = useSelector((state) => state.usersReducer);
 
   return (
     <div className="profil-container">

@@ -6,7 +6,8 @@ import { composeWithDevTools } from "redux-devtools-extension";
 import { applyMiddleware, createStore } from "redux";
 import thunk from "redux-thunk";
 import rootReducer from "./components/reducers";
-import logger from 'redux-logger';
+import logger from "redux-logger";
+import { getUsers } from "./components/action/users.action";
 
 const rootElement = document.getElementById("root");
 const root = createRoot(rootElement);
@@ -17,8 +18,10 @@ const store = createStore(
   composeWithDevTools(applyMiddleware(thunk, logger))
 );
 
+store.dispatch(getUsers());
+
 root.render(
-    <Provider store={store}>
-      <App />
-    </Provider>
+  <Provider store={store}>
+    <App />
+  </Provider>
 );
