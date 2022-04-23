@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { updatePost } from "../action/post.actions";
 import { dateParser, isEmpty } from "../Utils";
+import DeleteCard from "./DeleteCard";
 
 //Destructuration de Post
 
@@ -8,12 +10,22 @@ const Card = ({ post }) => {
   const [isLoading, setIsLoading] = useState(true);
   const usersData = useSelector((state) => state.usersReducer);
   const userData = useSelector((state) => state.userReducer);
+  const [textUpdate, setTextUpdate] = useState(null);
+  const [isUpdated, setIsUpdated] = useState(false);
+  const dispatch = useDispatch();
+
+  const updateItem = async () => {
+    if (textUpdate) {
+      dispatch(updatePost(post.id_post, textUpdate));
+    }
+    setIsUpdated(false);
+  };
 
   useEffect(() => {
     !isEmpty(usersData) && setIsLoading(false);
   }, [usersData]);
   return (
-    <li className="card-container" key={post.id_user}>
+    <li className="card-container" key={post.id_post}>
       {isLoading ? (
         <i className="fas fa-spinner fa-spin"></i>
       ) : (
@@ -30,7 +42,7 @@ const Card = ({ post }) => {
                   })
                   .join("")
               }
-              alt="photo de profil"
+              alt="profil"
             />
           </div>
           <div className="card-right">
@@ -49,21 +61,41 @@ const Card = ({ post }) => {
               </div>
               <span>{dateParser(post.timestamp)}</span>
             </div>
-            <p>{post.message}</p>
+            {isUpdated === false && <p>{post.message}</p>}
+            {isUpdated && (
+              <div className="update-post">
+                <textarea
+                  defaultValue={post.message}
+                  onChange={(e) => setTextUpdate(e.target.value)}
+                />
+                <div className="button-container">
+                  <button className="btn" onClick={updateItem}>
+                    valider le modification
+                  </button>
+                </div>
+              </div>
+            )}
             {post.picture && (
               <img
                 src={post.picture}
-                alt="Photo de text"
+                alt="partage de visuel"
                 className="card-pic"
               />
             )}
           </div>
+          {userData.id_user === post.id_user && (
+            <div className="button-container">
+              <div onClick={() => setIsUpdated(!isUpdated)}>
+                <img src="./img/icons/edit.svg" alt="modification post" />
+              </div>
+              <DeleteCard id={post.id_post} />
+            </div>
+          )}
           <div className="card-footer">
             <div className="comment-icon">
-              <img src="./img/icons/message1.svg" alt="comment" />
+              <img src="./img/icons/message1.svg" alt="commentaires" />
               {/*<span> {post.comments.length} <span/> */}
             </div>
-            <h6>Like Button</h6>
           </div>
         </>
       )}

@@ -1,5 +1,8 @@
 const mysqlconnection = require("../config/dbSql");
 
+//
+// Récupération de tous les posts Utilisateurs
+//
 exports.getAllPosts = (req, res, next) => {
   mysqlconnection.query("SELECT * FROM `post` WHERE ?", [1], (err, result) => {
     if (err) {
@@ -9,14 +12,36 @@ exports.getAllPosts = (req, res, next) => {
     res.status(200).json(result);
   });
 };
+
+
 //
-// Recupération de tous les postes avec => localhost:5000/api/post/(n°)
+// Recupération de tous les Posts d'un utilisateur => localhost:5000/api/post/(n°)
+//
+exports.getPostUser = (req, res, next) => {
+  const id_user = req.params.id;
+  console.log();
+  mysqlconnection.query(
+    `SELECT * FROM post WHERE id_user = ${id_user}`,
+
+    (err, result) => {
+      if (err) {
+        res.status(404).json({ err });
+        throw err;
+      }
+      res.status(200).json(result);
+    }
+  );
+};
+
+
+//
+// Recupération d'un post utilisateur => localhost:5000/api/post/(n°)
 //
 exports.getOnePost = (req, res, next) => {
   const id = req.params.id;
   console.log();
   mysqlconnection.query(
-    "SELECT * FROM `post` WHERE `id_user` = ?",
+    "SELECT * FROM `post` WHERE `id_post` = ?",
     [id],
     (err, result) => {
       if (err) {
@@ -67,12 +92,11 @@ exports.createPost = (req, res, next) => {
 
 module.exports.updatePost = (req, res) => {
   try {
-    const { message, picture, likers } = req.body;
-    const { id: userid } = req.params;
+    const { message } = req.body;
+    const { id: id_user } = req.params;
 
     mysqlconnection.query(
-      `UPDATE post SET message ="${message}", picture = "${picture}", likers = "${likers}"
-     WHERE id_user = ${userid}`,
+      `UPDATE post SET message ="${message}" WHERE id_user = ${id_user}`,
       (error, results) => {
         if (error) {
           res.status(404).json({ error });
@@ -92,13 +116,16 @@ module.exports.updatePost = (req, res) => {
 exports.deletePostById = (req, res, next) => {
   const { id: id_post } = req.params;
 
-  mysqlconnection.query(`DELETE FROM post WHERE id_user = ${id_post}`, (err, result) => {
-    if (err) {
-      res.status(404).json({ err });
-      throw err;
+  mysqlconnection.query(
+    `DELETE FROM post WHERE id_post = ${id_post}`,
+    (err, result) => {
+      if (err) {
+        res.status(404).json({ err });
+        throw err;
+      }
+      res.status(200).json(result);
     }
-    res.status(200).json(result);
-  });
+  );
 };
 
 // Likers a derterminé !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
