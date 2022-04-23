@@ -8,6 +8,7 @@ import thunk from "redux-thunk";
 import rootReducer from "./components/reducers";
 import logger from "redux-logger";
 import { getUsers } from "./components/action/users.action";
+import { getComments } from "./components/action/comments.action";
 
 const rootElement = document.getElementById("root");
 const root = createRoot(rootElement);
@@ -19,6 +20,7 @@ const store = createStore(
 );
 
 store.dispatch(getUsers());
+store.dispatch(getComments());
 
 root.render(
   <Provider store={store}>

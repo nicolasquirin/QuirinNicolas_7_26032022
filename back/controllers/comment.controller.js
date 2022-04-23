@@ -1,14 +1,13 @@
 const mysqlconnection = require("../config/dbSql");
 
 //
-// Récupération des commentaires de l'utilisateur
+// Récupération de tous les commentaires utilisateurs
 //
 exports.getAllComments = (req, res) => {
-  const id = req.params.id;
 
   mysqlconnection.query(
-    "SELECT * FROM `comment` WHERE `id_user` = ?",
-    [id],
+    "SELECT * FROM `comment` WHERE ?",
+    [1],
     (err, result) => {
       if (err) {
         res.status(404).json({ err });

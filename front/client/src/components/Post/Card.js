@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updatePost } from "../action/post.actions";
 import { dateParser, isEmpty } from "../Utils";
+import CardComments from "./CardComments";
 import DeleteCard from "./DeleteCard";
 
 //Destructuration de Post
 
-const Card = ({ post }) => {
+const Card = ({ post, comment }) => {
   const [isLoading, setIsLoading] = useState(true);
   const usersData = useSelector((state) => state.usersReducer);
   const userData = useSelector((state) => state.userReducer);
@@ -86,7 +87,7 @@ const Card = ({ post }) => {
           {userData.id_user === post.id_user && (
             <div className="button-container">
               <div onClick={() => setIsUpdated(!isUpdated)}>
-                <img src="./img/icons/edit.svg" alt="modification post" />
+                <img src="./img/icons/edit.svg" alt="modification" />
               </div>
               <DeleteCard id={post.id_post} />
             </div>
@@ -94,8 +95,9 @@ const Card = ({ post }) => {
           <div className="card-footer">
             <div className="comment-icon">
               <img src="./img/icons/message1.svg" alt="commentaires" />
-              {/*<span> {post.comments.length} <span/> */}
+              {/*<span> {post.comments.length} </span> */}
             </div>
+            <CardComments />
           </div>
         </>
       )}

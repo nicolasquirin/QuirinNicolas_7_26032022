@@ -4,9 +4,9 @@ const auth = require("../middleware/auth.middleware");
 const multer = require("multer");
 
 // comments
-router.get("/:id", auth, commController.getAllComments);
-router.get("/:id", auth, commController.getCommentById);
-router.post("/:id", auth, commController.createComment);
-router.delete("/:id", auth, commController.deleteCommentById);
+router.get("/", commController.getAllComments);
+router.get("/:id", commController.getCommentById);
+router.post("/:id", commController.createComment);
+router.delete("/:id", commController.deleteCommentById);
 
 module.exports = router;
