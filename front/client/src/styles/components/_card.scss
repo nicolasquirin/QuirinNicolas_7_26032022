@@ -62,46 +62,6 @@
         flex-direction: column;
       }
 
-      .pseudo {
-        display: flex;
-
-        @media screen and(max-width: 590px) {
-          margin-left: 52px;
-        }
-        @media screen and(max-width: 440px) {
-          transform: translateY(-18px);
-        }
-
-        span {
-          transform: translate(0px, -5px);
-
-          @media screen and(max-width: 440px) {
-            margin: 0px 0 -10px;
-            padding: 0;
-          }
-
-          img {
-            padding: 5px;
-            cursor: pointer;
-            transition: 0.15s;
-            box-shadow: none;
-            height: 28px;
-            width: 28px;
-
-            &:hover {
-              transform: scale(1.2) translate(0px, 0px);
-            }
-          }
-
-          .fas {
-            color: $color-1;
-          }
-          .far {
-            color: $color-2;
-          }
-        }
-      }
-
       span {
         font-style: italic;
         font-family: $font-1;

@@ -7,13 +7,15 @@ import DeleteCard from "./DeleteCard";
 
 //Destructuration de Post
 
-const Card = ({ post, comment }) => {
+const Card = ({ post }) => {
   const [isLoading, setIsLoading] = useState(true);
   const usersData = useSelector((state) => state.usersReducer);
   const userData = useSelector((state) => state.userReducer);
   const [textUpdate, setTextUpdate] = useState(null);
   const [isUpdated, setIsUpdated] = useState(false);
   const dispatch = useDispatch();
+  const [showComments, setShowComments] = useState(false);
+  const comments = useSelector((state) => state.commentsReducer);
 
   const updateItem = async () => {
     if (textUpdate) {
@@ -83,21 +85,26 @@ const Card = ({ post, comment }) => {
                 className="card-pic"
               />
             )}
-          </div>
-          {userData.id_user === post.id_user && (
-            <div className="button-container">
-              <div onClick={() => setIsUpdated(!isUpdated)}>
-                <img src="./img/icons/edit.svg" alt="modification" />
+
+            {userData.id_user === post.id_user && (
+              <div className="button-container">
+                <div onClick={() => setIsUpdated(!isUpdated)}>
+                  <img src="./img/icons/edit.svg" alt="modification" />
+                </div>
+                <DeleteCard id={post.id_post} />
               </div>
-              <DeleteCard id={post.id_post} />
+            )}
+            <div className="card-footer">
+              <div className="comment-icon">
+                <img
+                  onClick={() => setShowComments(!showComments)}
+                  src="./img/icons/message1.svg"
+                  alt="commentaires"
+                />
+                <span> {comments.length} </span>
+              </div>
             </div>
-          )}
-          <div className="card-footer">
-            <div className="comment-icon">
-              <img src="./img/icons/message1.svg" alt="commentaires" />
-              {/*<span> {post.comments.length} </span> */}
-            </div>
-            <CardComments />
+            {showComments && <CardComments comment={comments} />}
           </div>
         </>
       )}

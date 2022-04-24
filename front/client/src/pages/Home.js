@@ -14,16 +14,14 @@ const Home = () => {
     <div className="home">
       <LeftNav />
       <div className="main">
-        <Thread/>
         <div className="home-header">
-        {uid ? <NewPostForm /> : <Log signin={true} signup={false} />}
+          {uid ? <NewPostForm /> : <Log signin={true} signup={false} />}
         </div>
+        <Thread />
       </div>
       <div className="right-side">
         <div className="right-side-container">
-          <div className="wrapper">
-            {uid }
-          </div>
+          <div className="wrapper">{uid}</div>
         </div>
       </div>
     </div>

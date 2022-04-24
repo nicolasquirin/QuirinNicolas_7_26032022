@@ -9,8 +9,6 @@ const Thread = () => {
   const dispatch = useDispatch();
   const posts = useSelector((state) => state.postReducer);
 
-  console.log(posts);
-
   useEffect(() => {
     if (loadPost) {
       dispatch(getPosts());
