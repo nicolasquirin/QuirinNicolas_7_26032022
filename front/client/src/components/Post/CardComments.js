@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { isEmpty } from "../Utils";
-import { getPosts, getComments } from "../action/post.actions";
+import { getPosts } from "../action/post.actions";
 import { timestampParser } from "../Utils";
 
-const CardComments = ({ post }) => {
+const CardComments = ({ post, comment }) => {
   const [text, setText] = useState("");
   const usersData = useSelector((state) => state.usersReducer);
   const userData = useSelector((state) => state.userReducer);
@@ -15,7 +15,12 @@ const CardComments = ({ post }) => {
     e.preventDefault();
 
     if (text) {
-      dispatch((post.id_user, userData.id_user, text, userData.profil_prenom))
+      dispatch(
+        (post.id_post,
+        userData.id_user,
+        comment.id_post,
+        userData.profil_prenom)
+      )
         .then(() => dispatch(getPosts()))
         .then(() => setText(""));
     }
@@ -61,14 +66,14 @@ const CardComments = ({ post }) => {
           </div>
         );
       })}
-      {userData._id && (
+      {userData.id_user && (
         <form action="" onSubmit={handleComment} className="comment-form">
           <input
             type="text"
             name="text"
             onChange={(e) => setText(e.target.value)}
             value={text}
-            placeholder="Laisser un commentaire"
+            placeholder="Un commentaire ?"
           />
           <br />
           <input type="submit" value="Envoyer" />

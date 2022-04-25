@@ -7,7 +7,7 @@ import DeleteCard from "./DeleteCard";
 
 //Destructuration de Post
 
-const Card = ({ post }) => {
+const Card = ({ post, id_post }) => {
   const [isLoading, setIsLoading] = useState(true);
   const usersData = useSelector((state) => state.usersReducer);
   const userData = useSelector((state) => state.userReducer);
@@ -104,7 +104,8 @@ const Card = ({ post }) => {
                 <span> {comments.length} </span>
               </div>
             </div>
-            {showComments && <CardComments comment={comments} />}
+
+            {showComments && <CardComments post={post} />}
           </div>
         </>
       )}

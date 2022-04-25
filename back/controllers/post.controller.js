@@ -13,7 +13,6 @@ exports.getAllPosts = (req, res, next) => {
   });
 };
 
-
 //
 // Recupération de tous les Posts d'un utilisateur => localhost:5000/api/post/(n°)
 //
@@ -32,7 +31,6 @@ exports.getPostUser = (req, res, next) => {
     }
   );
 };
-
 
 //
 // Recupération d'un post utilisateur => localhost:5000/api/post/(n°)
@@ -53,7 +51,34 @@ exports.getOnePost = (req, res, next) => {
   );
 };
 
-//
+exports.PicturePost = (req, res) => {
+  try {
+    let { file } = req.file;
+
+    const { id: id_post } = req.params;
+
+    file = `${req.protocol}://${req.get("host")}/images/post/${
+      req.file.filename
+    }`;
+
+    console.log(req.file.filename);
+
+    mysqlconnection.query(
+      `UPDATE post SET picture = "${file}"  WHERE id_post = ${id_post}`,
+      (error, results) => {
+        if (error) {
+          res.status(404).json({ error });
+        } else {
+          res.status(200).json({ results });
+        }
+      }
+    );
+  } catch {
+    if (req.file == undefined) res.status(500).json(error);
+  }
+};
+
+// Création de post => SI just body Ou body/photo
 
 exports.createPost = (req, res, next) => {
   let { body, file } = req;
@@ -84,6 +109,36 @@ exports.createPost = (req, res, next) => {
       res.status(200).json(result);
     }
   });
+
+  /*
+  let { body, file } = req;
+
+  if (!file) {
+    const sqlInsert = "INSERT INTO post SET ?";
+    mysqlconnection.query(sqlInsert, body, (err, result) => {
+      if (err) {
+        res.status(404).json({ err });
+        throw err;
+      }
+    });
+  }
+  next();
+
+  if (file) {
+    let { body, file } = req;
+
+    file = `${req.protocol}://${req.get("host")}/images/${req.file.filename}`;
+
+    const sqlInsertImage = `INSERT INTO picture (picture, post_id) VALUES ("${file}")`;
+    mysqlconnection.query(sqlInsertImage, (err, result) => {
+      if (err) {
+        res.status(404).json({ err });
+        throw err;
+      }
+    });
+  }
+
+  */
 };
 
 //
@@ -93,10 +148,10 @@ exports.createPost = (req, res, next) => {
 module.exports.updatePost = (req, res) => {
   try {
     const { message } = req.body;
-    const { id: id_user } = req.params;
+    const { id: id_post } = req.params;
 
     mysqlconnection.query(
-      `UPDATE post SET message ="${message}" WHERE id_user = ${id_user}`,
+      `UPDATE post SET message ="${message}" WHERE id_post = ${id_post}`,
       (error, results) => {
         if (error) {
           res.status(404).json({ error });

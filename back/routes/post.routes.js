@@ -1,15 +1,15 @@
 const router = require("express").Router();
 const postController = require("../controllers/post.controller");
 const auth = require("../middleware/auth.middleware");
-const multer = require("multer");
-const upload = multer();
+const multer = require("../middleware/multer");
 
 // Posts
 
+
+//router.get("/user/:id", postController.getPostUser);
+//router.get("/:id", postController.getOnePost);
 router.get("/", postController.getAllPosts);
-router.get("/user/:id", postController.getPostUser);
-router.get("/:id", postController.getOnePost);
-router.post("/", upload.single("post_image"), postController.createPost);
+router.post("/", multer, postController.createPost);
 router.put("/:id", postController.updatePost);
 router.delete("/:id", postController.deletePostById);
 

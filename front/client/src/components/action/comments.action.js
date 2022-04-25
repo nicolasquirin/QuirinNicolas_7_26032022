@@ -4,15 +4,15 @@ import axios from "axios";
 export const GET_COMMENTS = "GET_COMMENTS";
 export const DELETE_POST = "DELETE_COMMENTS";
 
-
-export const getComments = () => {
+export const getComments = (id, comment) => {
   return (dispatch) => {
     return axios
       .get(`${process.env.REACT_APP_API_URL}api/comm/`)
-      .then((res) => {console.log(res.data);
-        dispatch({ type: GET_COMMENTS, payload: res.data});
+      .then((res) => {
+        console.log(res);
+        dispatch({ type: GET_COMMENTS, payload: res.data });
       })
-      
+
       .catch((err) => console.log(err));
   };
 };
