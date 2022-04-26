@@ -80,39 +80,8 @@ exports.PicturePost = (req, res) => {
 
 // Création de post => SI just body Ou body/photo
 
-exports.createPost = (req, res, next) => {
+exports.createPost = async (req, res, next) => {
   let { body, file } = req;
-  if (!file) delete req.body.post_picture;
-  body = {
-    ...body,
-    likers: "",
-  };
-
-  const sqlInsert = "INSERT INTO post SET ?";
-  mysqlconnection.query(sqlInsert, body, (err, result) => {
-    if (err) {
-      res.status(404).json({ err });
-      throw err;
-    }
-    //
-    const id_post = result.insertId;
-    if (file) {
-      const sqlInsertImage = `INSERT INTO picture (picture, id_post) VALUES ("${file.filename}", ${id_post})`;
-      mysqlconnection.query(sqlInsertImage, (err, result) => {
-        if (err) {
-          res.status(404).json({ err });
-          throw err;
-        }
-        res.status(200).json(result);
-      });
-    } else {
-      res.status(200).json(result);
-    }
-  });
-
-  /*
-  let { body, file } = req;
-
   if (!file) {
     const sqlInsert = "INSERT INTO post SET ?";
     mysqlconnection.query(sqlInsert, body, (err, result) => {
@@ -121,15 +90,27 @@ exports.createPost = (req, res, next) => {
         throw err;
       }
     });
+    console.log(res);
+    next();
   }
-  next();
 
   if (file) {
     let { body, file } = req;
 
+    const sqlInsert = "INSERT INTO post SET ?";
+    mysqlconnection.query(sqlInsert, body, (err, result) => {
+      if (err) {
+        res.status(404).json({ err });
+        throw err;
+      }
+    });
+
     file = `${req.protocol}://${req.get("host")}/images/${req.file.filename}`;
 
-    const sqlInsertImage = `INSERT INTO picture (picture, post_id) VALUES ("${file}")`;
+    const id_post = req.params.post.id_post;
+
+    const sqlInsertImage = `UPDATE post SET picture = "${file}"  WHERE id_post = ${id_post}`;
+
     mysqlconnection.query(sqlInsertImage, (err, result) => {
       if (err) {
         res.status(404).json({ err });
@@ -137,8 +118,6 @@ exports.createPost = (req, res, next) => {
       }
     });
   }
-
-  */
 };
 
 //
