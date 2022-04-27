@@ -82,42 +82,34 @@ exports.PicturePost = (req, res) => {
 
 exports.createPost = async (req, res, next) => {
   let { body, file } = req;
-  if (!file) {
-    const sqlInsert = "INSERT INTO post SET ?";
-    mysqlconnection.query(sqlInsert, body, (err, result) => {
-      if (err) {
-        res.status(404).json({ err });
-        throw err;
-      }
-    });
-    console.log(res);
-    next();
-  }
 
-  if (file) {
-    let { body, file } = req;
+  const sqlInsert = "INSERT INTO post SET ?";
+  mysqlconnection.query(sqlInsert, body, (err, result) => {
+    if (err) {
+      res.status(404).json({ err });
+      throw err;
+    }
 
-    const sqlInsert = "INSERT INTO post SET ?";
-    mysqlconnection.query(sqlInsert, body, (err, result) => {
-      if (err) {
-        res.status(404).json({ err });
-        throw err;
-      }
-    });
+    if (file !== undefined) {
+      let { file } = req.file;
 
-    file = `${req.protocol}://${req.get("host")}/images/${req.file.filename}`;
+      const id_post = result.insertId;
 
-    const id_post = req.params.post.id_post;
+      file = `${req.protocol}://${req.get("host")}/images/${req.file.filename}`;
 
-    const sqlInsertImage = `UPDATE post SET picture = "${file}"  WHERE id_post = ${id_post}`;
+      const sqlInsertImage = `INSERT INTO post (picture, id_post) VALUES ("${file}", ${id_post})`;
 
-    mysqlconnection.query(sqlInsertImage, (err, result) => {
-      if (err) {
-        res.status(404).json({ err });
-        throw err;
-      }
-    });
-  }
+      mysqlconnection.query(sqlInsertImage, (err, result) => {
+        if (err) {
+          res.status(404).json({ err });
+          throw err;
+        }
+        res.status(200).json(result);
+      });
+    } else {
+      res.status(200).json(result);
+    }
+  });
 };
 
 //

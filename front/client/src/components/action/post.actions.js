@@ -6,7 +6,7 @@ export const ADD_POST = "ADD_POST";
 export const UPDATE_POST = "UPDATE_POST";
 export const DELETE_POST = "DELETE_POST";
 
-export const getPosts = (id_post) => {
+export const getPosts = () => {
   return (dispatch) => {
     return axios
       .get(`${process.env.REACT_APP_API_URL}api/post/`)
@@ -21,11 +21,14 @@ export const getPosts = (id_post) => {
   };
 };
 
-export const AddPost = (data) => {
+export const AddPost = (data, post) => {
   return (dispatch) => {
     return axios
-      .post(`${process.env.REACT_APP_API_URL}api/post/`, data) 
+      .post(`${process.env.REACT_APP_API_URL}api/post/`, data)
       .then((res) => {
+        dispatch({ type: GET_POSTS, payload: res.data, post});
+        console.log(res.data);
+        console.log(post.id_post);
         return axios
       })
       .catch((err) => {
@@ -58,7 +61,6 @@ export const deletePost = (id_post) => {
     })
       .then((res) => {
         localStorage.removeItem("id_post")
-        console.log(id_post);
         dispatch({ type: DELETE_POST, payload: { id_post} });
       })
       .catch((err) => console.log(err));

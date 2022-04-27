@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import { AddPost, getPosts } from "../action/post.actions";
 import { timestampParser } from "../Utils";
 
-const NewPostForm = () => {
+const NewPostForm = (post) => {
   const [message, setMessage] = useState("");
   const [postPicture, setPostPicture] = useState(null);
   const [file, setFile] = useState();
@@ -14,7 +14,7 @@ const NewPostForm = () => {
   const handlePost = async () => {
     if (message || postPicture) {
       const data = new FormData();
-      data.append("post.id_user", userData.id_user);
+      data.append("id_user", userData.id_user);
       data.append("message", message);
       if (file) data.append("file", file);
 
