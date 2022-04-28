@@ -4,7 +4,9 @@ import { isEmpty } from "../Utils";
 import { getPosts } from "../action/post.actions";
 import { timestampParser } from "../Utils";
 
-const CardComments = ({ post, comment }) => {
+
+// Stockage des commentaires dans => text 
+const CardComments = () => {
   const [text, setText] = useState("");
   const usersData = useSelector((state) => state.usersReducer);
   const userData = useSelector((state) => state.userReducer);
@@ -16,9 +18,8 @@ const CardComments = ({ post, comment }) => {
 
     if (text) {
       dispatch(
-        (post.id_post,
+        (comments.id_post,
         userData.id_user,
-        comment.id_post,
         userData.profil_prenom)
       )
         .then(() => dispatch(getPosts()))
@@ -27,9 +28,10 @@ const CardComments = ({ post, comment }) => {
   };
 
   return (
+    
     <div className="comments-container">
       {comments.map((comment) => {
-        console.log(comment);
+        console.log(comment.id_post);
         return (
           <div
             className={
@@ -37,7 +39,7 @@ const CardComments = ({ post, comment }) => {
                 ? "comment-container client"
                 : "comment-container"
             }
-            key={comment.id_user}
+            key={comment.id_post}
           >
             <div className="left-part">
               <img
@@ -80,6 +82,7 @@ const CardComments = ({ post, comment }) => {
         </form>
       )}
     </div>
+    
   );
 };
 

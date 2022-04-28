@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 
+// Constante email, password en Hook
 const SignInForm = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

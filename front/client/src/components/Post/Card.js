@@ -7,7 +7,7 @@ import DeleteCard from "./DeleteCard";
 
 //Destructuration de Post
 
-const Card = ({ post, id_post }) => {
+const Card = ({ post, comment }) => {
   const [isLoading, setIsLoading] = useState(true);
   const usersData = useSelector((state) => state.usersReducer);
   const userData = useSelector((state) => state.userReducer);
@@ -28,7 +28,7 @@ const Card = ({ post, id_post }) => {
     !isEmpty(usersData) && setIsLoading(false);
   }, [usersData]);
   return (
-    <li className="card-container" key={post.id_post}>
+    <li className="card-container" key={comments.id_post}>
       {isLoading ? (
         <i className="fas fa-spinner fa-spin"></i>
       ) : (
@@ -101,11 +101,32 @@ const Card = ({ post, id_post }) => {
                   src="./img/icons/message1.svg"
                   alt="commentaires"
                 />
-                <span> {comments.length} </span>
+                <span>
+                  {!isEmpty(comments) &&
+                    comments
+                      .map((comment) => {
+                        if (comment.id_post === post.id_post)
+                          return comments.length;
+                        else return null;
+                      })
+                      .slice(-1)}
+                </span>
               </div>
             </div>
-
-            {showComments && <CardComments post={post} />}
+            <ul>
+              {!isEmpty(comments[0]) &&
+                comments
+                  .map((comment) => {
+                    if (comment.id_post === post.id_post)
+                      return (
+                        showComments && (
+                          <CardComments comments={comments.comment} />
+                        )
+                      );
+                    //else return (""); ????? A VOIR APRES CREATE COMMENT SI BESOIN
+                  })
+                  .slice(-1)}
+            </ul>
           </div>
         </>
       )}

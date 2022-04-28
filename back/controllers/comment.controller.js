@@ -3,6 +3,7 @@ const mysqlconnection = require("../config/dbSql");
 //
 // Récupération de tous les commentaires utilisateurs
 //
+
 exports.getAllComments = (req, res) => {
 
   mysqlconnection.query(
@@ -18,15 +19,17 @@ exports.getAllComments = (req, res) => {
   );
 };
 
+
+
 //
 // Récupération commentaires du post
 //
 exports.getCommentById = (req, res) => {
-  const id = req.params.id;
+  const id_post = req.params.id;
 
   mysqlconnection.query(
-    "SELECT * FROM `comment` WHERE `comment_id` = ?",
-    [id],
+    `SELECT * FROM comment WHERE id_post = ${id_post}`,
+
     (err, result) => {
       if (err) {
         res.status(404).json({ err });
