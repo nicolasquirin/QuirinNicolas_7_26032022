@@ -5,7 +5,6 @@ const mysqlconnection = require("../config/dbSql");
 //
 
 exports.getAllComments = (req, res) => {
-
   mysqlconnection.query(
     "SELECT * FROM `comment` WHERE ?",
     [1],
@@ -18,8 +17,6 @@ exports.getAllComments = (req, res) => {
     }
   );
 };
-
-
 
 //
 // Récupération commentaires du post

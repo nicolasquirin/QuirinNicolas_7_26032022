@@ -16,11 +16,15 @@ exports.getAllPosts = (req, res, next) => {
 //
 // Recupération de tous les Posts d'un utilisateur => localhost:5000/api/post/(n°)
 //
-exports.getPostUser = (req, res, next) => {
-  const id_user = req.params.id;
+
+/*
+exports.getPostPicture = (req, res, next) => {
+  //const id_user = req.params.id;
+  const { id: id_post } = req.params;
+
   console.log();
   mysqlconnection.query(
-    `SELECT * FROM post WHERE id_user = ${id_user}`,
+    `SELECT * FROM picture WHERE id_post = ${id_post}`,
 
     (err, result) => {
       if (err) {
@@ -31,6 +35,8 @@ exports.getPostUser = (req, res, next) => {
     }
   );
 };
+
+*/
 
 //
 // Recupération d'un post utilisateur => localhost:5000/api/post/(n°)
@@ -51,6 +57,7 @@ exports.getOnePost = (req, res, next) => {
   );
 };
 
+/*
 exports.PicturePost = (req, res) => {
   try {
     let { file } = req.file;
@@ -77,39 +84,48 @@ exports.PicturePost = (req, res) => {
     if (req.file == undefined) res.status(500).json(error);
   }
 };
+*/
 
+//
 // Création de post => SI just body Ou body/photo
+//
 
 exports.createPost = async (req, res, next) => {
   let { body, file } = req;
 
-  const sqlInsert = "INSERT INTO post SET ?";
-  mysqlconnection.query(sqlInsert, body, (err, result) => {
-    if (err) {
-      res.status(404).json({ err });
-      throw err;
-    }
+  if (!file) delete req.body.post_image;
+  body = {
+    ...body,
+    likers: "",
+  };
 
-    if (file !== undefined) {
-      let { file } = req.file;
-
-      const id_post = result.insertId;
-
-      file = `${req.protocol}://${req.get("host")}/images/${req.file.filename}`;
-
-      const sqlInsertImage = `INSERT INTO post (picture, id_post) VALUES ("${file}", ${id_post})`;
-
-      mysqlconnection.query(sqlInsertImage, (err, result) => {
-        if (err) {
-          res.status(404).json({ err });
-          throw err;
-        }
-        res.status(200).json(result);
-      });
-    } else {
+  if (file === undefined) {
+    const sqlInsert = "INSERT INTO post SET ?";
+    mysqlconnection.query(sqlInsert, body, (err, result) => {
+      if (err) {
+        res.status(404).json({ err });
+        throw err;
+      }
       res.status(200).json(result);
-    }
-  });
+    });
+  } else {
+    let { body } = req;
+
+    let { file } = req.file;
+
+    file = `${req.protocol}://${req.get("host")}/images/${req.file.filename}`;
+
+    const sqlInsertImage = `INSERT INTO post (picture, message) VALUES ("${file}", "?" )`;
+
+    mysqlconnection.query(sqlInsertImage, body, (err, result) => {
+      console.log(result);
+      if (err) {
+        res.status(404).json({ err });
+        throw err;
+      }
+      res.status(200).json(result);
+    });
+  }
 };
 
 //

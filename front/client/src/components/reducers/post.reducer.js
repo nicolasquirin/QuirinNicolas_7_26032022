@@ -1,4 +1,4 @@
-import { DELETE_POST, GET_POSTS, UPDATE_POST } from "../action/post.actions";
+import { DELETE_POST, GET_PICTURE, GET_POSTS, UPDATE_POST } from "../action/post.actions";
 
 const initialState = {};
 
@@ -6,6 +6,11 @@ export default function postReducer(state = initialState, action) {
   switch (action.type) {
     case GET_POSTS:
       return action.payload;
+
+    case GET_PICTURE:
+      return action.payload;
+
+      //IDEM QUE UPDATE POST POUR MAP
 
     case UPDATE_POST:
       return state.map((post) => {

@@ -2,6 +2,7 @@ import axios from "axios";
 
 // Récupération des posts de la BDD
 export const GET_POSTS = "GET_POSTS";
+export const GET_PICTURE = "GET_PICTURE";
 export const ADD_POST = "ADD_POST";
 export const UPDATE_POST = "UPDATE_POST";
 export const DELETE_POST = "DELETE_POST";
@@ -21,6 +22,23 @@ export const getPosts = () => {
   };
 };
 
+
+export const getPicture = (id_post) => {
+  return (dispatch) => {
+    return axios
+      .get(`${process.env.REACT_APP_API_URL}api/post//${id_post}`)
+
+      .then((res) => {
+        localStorage.id_post = JSON.stringify(res.data);
+        console.log(res.data);
+        dispatch({ type: GET_POSTS, payload:{ res, id_post } });
+      })
+      .catch((err) => console.log(err));
+  };
+};
+
+
+
 export const AddPost = (data, post) => {
   return (dispatch) => {
     return axios
@@ -28,7 +46,7 @@ export const AddPost = (data, post) => {
       .then((res) => {
         dispatch({ type: GET_POSTS, payload: res.data, post});
         console.log(res.data);
-        console.log(post.id_post);
+
         return axios
       })
       .catch((err) => {

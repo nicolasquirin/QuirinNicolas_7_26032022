@@ -7,7 +7,7 @@ import DeleteCard from "./DeleteCard";
 
 //Destructuration de Post
 
-const Card = ({ post, comment }) => {
+const Card = ({ post }) => {
   const [isLoading, setIsLoading] = useState(true);
   const usersData = useSelector((state) => state.usersReducer);
   const userData = useSelector((state) => state.userReducer);
