@@ -57,47 +57,12 @@ exports.getOnePost = (req, res, next) => {
   );
 };
 
-/*
-exports.PicturePost = (req, res) => {
-  try {
-    let { file } = req.file;
-
-    const { id: id_post } = req.params;
-
-    file = `${req.protocol}://${req.get("host")}/images/post/${
-      req.file.filename
-    }`;
-
-    console.log(req.file.filename);
-
-    mysqlconnection.query(
-      `UPDATE post SET picture = "${file}"  WHERE id_post = ${id_post}`,
-      (error, results) => {
-        if (error) {
-          res.status(404).json({ error });
-        } else {
-          res.status(200).json({ results });
-        }
-      }
-    );
-  } catch {
-    if (req.file == undefined) res.status(500).json(error);
-  }
-};
-*/
-
 //
 // Création de post => SI just body Ou body/photo
 //
 
 exports.createPost = async (req, res, next) => {
   let { body, file } = req;
-
-  if (!file) delete req.body.post_image;
-  body = {
-    ...body,
-    likers: "",
-  };
 
   if (file === undefined) {
     const sqlInsert = "INSERT INTO post SET ?";
@@ -115,7 +80,7 @@ exports.createPost = async (req, res, next) => {
 
     file = `${req.protocol}://${req.get("host")}/images/${req.file.filename}`;
 
-    const sqlInsertImage = `INSERT INTO post (picture, message) VALUES ("${file}", "?" )`;
+    const sqlInsertImage = `INSERT INTO post SET picture = "${file}", ?`;
 
     mysqlconnection.query(sqlInsertImage, body, (err, result) => {
       console.log(result);
@@ -124,6 +89,7 @@ exports.createPost = async (req, res, next) => {
         throw err;
       }
       res.status(200).json(result);
+      console.log(result);
     });
   }
 };
