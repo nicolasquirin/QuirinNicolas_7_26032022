@@ -26,7 +26,7 @@ export const getPosts = () => {
 export const getPicture = (id_post) => {
   return (dispatch) => {
     return axios
-      .get(`${process.env.REACT_APP_API_URL}api/post//${id_post}`)
+      .get(`${process.env.REACT_APP_API_URL}api/post/${id_post}`)
 
       .then((res) => {
         localStorage.id_post = JSON.stringify(res.data);
@@ -39,14 +39,14 @@ export const getPicture = (id_post) => {
 
 
 
-export const AddPost = (data, post) => {
+export const AddPost = (data) => {
   return (dispatch) => {
     return axios
       .post(`${process.env.REACT_APP_API_URL}api/post/`, data)
       .then((res) => {
-        dispatch({ type: GET_POSTS, payload: res.data, post});
-        console.log(res.data);
-
+        console.log(data);
+        dispatch({ type: GET_POSTS, payload: res.data});
+       
         return axios
       })
       .catch((err) => {
@@ -84,3 +84,4 @@ export const deletePost = (id_post) => {
       .catch((err) => console.log(err));
   };
 };
+

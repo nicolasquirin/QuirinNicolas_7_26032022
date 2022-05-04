@@ -3,35 +3,34 @@ import { useDispatch, useSelector } from "react-redux";
 import { isEmpty } from "../Utils";
 import { getPosts } from "../action/post.actions";
 import { timestampParser } from "../Utils";
+import { addComment, getComments } from "../action/comments.action";
 
 
 // Stockage des commentaires dans => text 
-const CardComments = () => {
+const CardComments = ( { comment}) => {
   const [text, setText] = useState("");
   const usersData = useSelector((state) => state.usersReducer);
   const userData = useSelector((state) => state.userReducer);
   const dispatch = useDispatch();
   const comments = useSelector((state) => state.commentsReducer);
 
-  const handleComment = (e) => {
+  const handleComment = async (e) => {
     e.preventDefault();
 
-    if (text) {
-      dispatch(
-        (comments.id_post,
-        userData.id_user,
-        userData.profil_prenom)
-      )
-        .then(() => dispatch(getPosts()))
-        .then(() => setText(""));
-    }
+   if (text) {
+     dispatch(addComment(comment.id_post ,userData.id_user, text))
+       .then(() => dispatch(getComments()))
+       .then(() => setText(""));
+       console.log();
+   }
+    
   };
 
   return (
     
     <div className="comments-container">
       {comments.map((comment) => {
-        console.log(comment.id_post);
+        
         return (
           <div
             className={
@@ -61,9 +60,9 @@ const CardComments = () => {
                   <h3>{comment.profil_prenom}</h3>
                   {comment.id_user !== userData.id_user}
                 </div>
-                <span>{timestampParser(comment.comment.timestamp)}</span>
+                <span>{timestampParser(comment.timestamp)}</span>
               </div>
-              <p>{comment.comment}</p>
+              <p>{comment.text}</p>
             </div>
           </div>
         );

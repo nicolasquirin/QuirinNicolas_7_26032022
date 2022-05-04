@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 import { AddPost, getPosts } from "../action/post.actions";
 import { timestampParser } from "../Utils";
 
-const NewPostForm = (post) => {
+const NewPostForm = () => {
   const [message, setMessage] = useState("");
   const [postPicture, setPostPicture] = useState(null);
   const [file, setFile] = useState();

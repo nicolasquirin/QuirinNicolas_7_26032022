@@ -42,20 +42,19 @@ exports.getCommentById = (req, res) => {
 //
 
 exports.createComment = (req, res, next) => {
-  const { id_user, comment, profil_nom, profil_prenom } = req.body;
 
-  mysqlconnection.query(
-    `INSERT INTO comment (comment_id, id_user, comment, profil_nom, profil_prenom) VALUES 
-    ( NULL, ${id_user}, "${comment}", "${profil_nom}", "${profil_prenom}")`,
-    (err, result) => {
-      if (err) {
-        res.status(404).json({ err });
-        console.log(err);
-        throw err;
-      }
-      res.status(200).json(result);
+
+  let { body } = req;
+
+  const sqlInsert = `INSERT INTO comment SET ?`;
+  mysqlconnection.query(sqlInsert, body, (err, result) => {
+    if (err) {
+      res.status(404).json({ err });
+      throw err;
     }
-  );
+    res.status(200).json(result);
+    console.log(result);
+  });
 };
 
 //
