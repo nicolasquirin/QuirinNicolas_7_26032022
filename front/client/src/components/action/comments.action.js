@@ -22,7 +22,12 @@ export const getComments = () => {
   };
 };
 
-export const addComment = (id_post, id_user, text) => {
+export const addComment = ( id_user, text, id_post) => {
+
+
+  id_post = JSON.parse(localStorage.getItem("id_post"));
+  
+
   return (dispatch) => {
     return axios({
       method: "post",

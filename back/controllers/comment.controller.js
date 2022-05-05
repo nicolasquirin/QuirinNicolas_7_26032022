@@ -42,9 +42,8 @@ exports.getCommentById = (req, res) => {
 //
 
 exports.createComment = (req, res, next) => {
-
-
   let { body } = req;
+  
 
   const sqlInsert = `INSERT INTO comment SET ?`;
   mysqlconnection.query(sqlInsert, body, (err, result) => {

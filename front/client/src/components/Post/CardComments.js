@@ -7,7 +7,7 @@ import { addComment, getComments } from "../action/comments.action";
 
 
 // Stockage des commentaires dans => text 
-const CardComments = ( { comment}) => {
+const CardComments = ( { id_post}) => {
   const [text, setText] = useState("");
   const usersData = useSelector((state) => state.usersReducer);
   const userData = useSelector((state) => state.userReducer);
@@ -18,7 +18,7 @@ const CardComments = ( { comment}) => {
     e.preventDefault();
 
    if (text) {
-     dispatch(addComment(comment.id_post ,userData.id_user, text))
+     dispatch(addComment( userData.id_user, text, id_post))
        .then(() => dispatch(getComments()))
        .then(() => setText(""));
        console.log();

@@ -123,7 +123,7 @@ const Card = ({ post }) => {
                           <CardComments comments={comments.comment} />
                         )
                       );
-                    //else return (""); ????? A VOIR APRES CREATE COMMENT SI BESOIN
+                    else return comment.id_post !== post.id_post;
                   })
                   .slice(-1)}
             </ul>
