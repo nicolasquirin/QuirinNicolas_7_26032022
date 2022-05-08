@@ -42,11 +42,13 @@ exports.getCommentById = (req, res) => {
 //
 
 exports.createComment = (req, res, next) => {
+
   let { body } = req;
-  
+  const id_post = req.params.id;
+  console.log(body, id_post);
 
   const sqlInsert = `INSERT INTO comment SET ?`;
-  mysqlconnection.query(sqlInsert, body, (err, result) => {
+  mysqlconnection.query(sqlInsert,{ ...body, id_post}, (err, result) => {
     if (err) {
       res.status(404).json({ err });
       throw err;

@@ -13,31 +13,28 @@ export const getComments = () => {
     return axios
       .get(`${process.env.REACT_APP_API_URL}api/comm/`)
       .then((res) => {
-        console.log(res.data[0].id_post);
+
         dispatch({ type: GET_COMMENTS, payload: res.data });
-        console.log(res);
+        console.log();
       })
 
       .catch((err) => console.log(err));
   };
 };
 
-export const addComment = ( id_user, text, id_post) => {
-
-
-  id_post = JSON.parse(localStorage.getItem("id_post"));
-  
+export const addComment = ( id_post, id_user, text) => {
 
   return (dispatch) => {
-    return axios({
-      method: "post",
-      url: `${process.env.REACT_APP_API_URL}api/comm/${id_post}`,
-      data: { id_user, text, id_post },
-    })
+    return axios
+      .post(`${process.env.REACT_APP_API_URL}api/comm/${id_post}`,{ id_user, text})
       .then((res) => {
-        console.log(res);
-        dispatch({ type: ADD_COMMENT, payload: { id_post } });
+    
+        dispatch({ type: ADD_COMMENT, payload: res.data });
+
+        return axios;
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+      });
   };
 };

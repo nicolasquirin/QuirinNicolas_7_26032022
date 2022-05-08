@@ -2,10 +2,11 @@ import axios from "axios";
 
 // Récupération des posts de la BDD
 export const GET_POSTS = "GET_POSTS";
-export const GET_PICTURE = "GET_PICTURE";
 export const ADD_POST = "ADD_POST";
 export const UPDATE_POST = "UPDATE_POST";
 export const DELETE_POST = "DELETE_POST";
+
+//const insertId = id_post;
 
 export const getPosts = () => {
   return (dispatch) => {
@@ -13,8 +14,8 @@ export const getPosts = () => {
       .get(`${process.env.REACT_APP_API_URL}api/post/`)
 
       .then((res) => {
-        localStorage.id_post = JSON.stringify(res.data[0].id_post);
-        console.log(res.data[0].id_post);
+ 
+        console.log(res.data);
         dispatch({ type: GET_POSTS, payload: res.data});
         
       })
@@ -22,21 +23,9 @@ export const getPosts = () => {
   };
 };
 
-
-export const getPicture = (id_post) => {
-  return (dispatch) => {
-    return axios
-      .get(`${process.env.REACT_APP_API_URL}api/post/${id_post}`)
-
-      .then((res) => {
-        localStorage.id_post = JSON.stringify(res.data);
-        console.log(res.data);
-        dispatch({ type: GET_POSTS, payload:{ res, id_post } });
-      })
-      .catch((err) => console.log(err));
-  };
-};
-
+//
+//
+//
 
 
 export const AddPost = (data) => {
@@ -44,8 +33,8 @@ export const AddPost = (data) => {
     return axios
       .post(`${process.env.REACT_APP_API_URL}api/post/`, data)
       .then((res) => {
-        console.log(data);
-        dispatch({ type: GET_POSTS, payload: res.data});
+        console.log(res);
+        dispatch({ type: ADD_POST, payload: res});
        
         return axios
       })
@@ -55,6 +44,10 @@ export const AddPost = (data) => {
   };
 }
 
+//
+//
+//
+
 export const updatePost = (id_post, message) => {
   return (dispatch) => {
     return axios({
@@ -63,13 +56,16 @@ export const updatePost = (id_post, message) => {
       data: { message },
     })
       .then((res) => {
+        console.log(res);
         dispatch({ type: UPDATE_POST, payload: { message, id_post } });
       })
       .catch((err) => console.log(err));
   };
 };
 
-
+//
+//
+//
 
 export const deletePost = (id_post) => {
   return (dispatch) => {

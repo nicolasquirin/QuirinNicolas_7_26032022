@@ -7,10 +7,6 @@ export default function postReducer(state = initialState, action) {
     case GET_POSTS:
       return action.payload;
 
-    case GET_PICTURE:
-      return action.payload;
-
-      //IDEM QUE UPDATE POST POUR MAP
 
     case UPDATE_POST:
       return state.map((post) => {

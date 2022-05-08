@@ -5,32 +5,26 @@ import { getPosts } from "../action/post.actions";
 import { timestampParser } from "../Utils";
 import { addComment, getComments } from "../action/comments.action";
 
-
-// Stockage des commentaires dans => text 
-const CardComments = ( { id_post}) => {
+// Stockage des commentaires dans => text
+const CardComments = ({ comments, show, id_post }) => {
   const [text, setText] = useState("");
   const usersData = useSelector((state) => state.usersReducer);
   const userData = useSelector((state) => state.userReducer);
   const dispatch = useDispatch();
-  const comments = useSelector((state) => state.commentsReducer);
 
   const handleComment = async (e) => {
     e.preventDefault();
 
-   if (text) {
-     dispatch(addComment( userData.id_user, text, id_post))
-       .then(() => dispatch(getComments()))
-       .then(() => setText(""));
-       console.log();
-   }
-    
+    if (text) {
+      dispatch(addComment(id_post, userData.id_user, text));
+      setText( "" );
+      dispatch(getComments());
+    }
   };
 
-  return (
-    
+  return !show ? null : (
     <div className="comments-container">
       {comments.map((comment) => {
-        
         return (
           <div
             className={
@@ -38,7 +32,8 @@ const CardComments = ( { id_post}) => {
                 ? "comment-container client"
                 : "comment-container"
             }
-            key={comment.id_post}
+            //
+            key={comment.comment_id}
           >
             <div className="left-part">
               <img
@@ -81,7 +76,6 @@ const CardComments = ( { id_post}) => {
         </form>
       )}
     </div>
-    
   );
 };
 

@@ -14,7 +14,7 @@ const Navigate = () => {
     <nav>
       <div className="nav-container">
         <div className="logo">
-          <NavLink exact to="/">
+          <NavLink exact="true" to="/">
             <div className="logo">
               <img src="./img/icon.png" alt="icon" />
               <h3>Groupomania</h3>
@@ -25,7 +25,7 @@ const Navigate = () => {
           <ul>
             <li></li>
             <li className="welcome">
-              <NavLink exact to="/login">
+              <NavLink exact="true" to="/login">
                 <h5>Bienvenue {userData.profil_prenom}</h5>
               </NavLink>
             </li>
@@ -35,7 +35,7 @@ const Navigate = () => {
           <ul>
             <li></li>
             <li>
-              <NavLink exact to="/login">
+              <NavLink exact="true" to="/login">
                 <img src="./img/icons/login.svg" alt="login" />
                 <h5>Connexion</h5>
               </NavLink>

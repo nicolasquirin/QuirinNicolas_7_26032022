@@ -42,7 +42,7 @@ const NewPostForm = () => {
   return (
     <div className="post-container">
       <>
-        <NavLink exact to="/profil">
+        <NavLink exact="true" to="/profil">
           <div className="user-info">
             <img src={userData.photo} alt="profil" />
           </div>
@@ -55,7 +55,7 @@ const NewPostForm = () => {
             onChange={(e) => setMessage(e.target.value)}
             value={message}
           />
-          {message || postPicture > 20 ? (
+          {message ? (
             <li className="card-container">
               <div className="card-left">
                 <img src={userData.photo} alt="user-pic" />

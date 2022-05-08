@@ -15,7 +15,10 @@ const Card = ({ post }) => {
   const [isUpdated, setIsUpdated] = useState(false);
   const dispatch = useDispatch();
   const [showComments, setShowComments] = useState(false);
-  const comments = useSelector((state) => state.commentsReducer);
+  const _comments = useSelector((state) => state.commentsReducer);
+  // Filtre du commentaire => posts
+  const comments = (_comments || [])
+    .filter((comment) => comment.id_post === post.id_post);
 
   const updateItem = async () => {
     if (textUpdate) {
@@ -28,7 +31,7 @@ const Card = ({ post }) => {
     !isEmpty(usersData) && setIsLoading(false);
   }, [usersData]);
   return (
-    <li className="card-container" key={comments.id_post}>
+    <li className="card-container" key={post.id_post}>
       {isLoading ? (
         <i className="fas fa-spinner fa-spin"></i>
       ) : (
@@ -102,31 +105,11 @@ const Card = ({ post }) => {
                   alt="commentaires"
                 />
                 <span>
-                  {!isEmpty(comments) &&
-                    comments
-                      .map((comment) => {
-                        if (comment.id_post === post.id_post)
-                          return comments.length;
-                        else return null;
-                      })
-                      .slice(-1)}
+                  {comments.length === 0 ? "aucun comm" : comments.length}
                 </span>
               </div>
             </div>
-            <ul>
-              {!isEmpty(comments[0]) &&
-                comments
-                  .map((comment) => {
-                    if (comment.id_post === post.id_post)
-                      return (
-                        showComments && (
-                          <CardComments comments={comments.comment} />
-                        )
-                      );
-                    else return comment.id_post !== post.id_post;
-                  })
-                  .slice(-1)}
-            </ul>
+            <CardComments comments={comments} show = {showComments} id_post = {post.id_post} />
           </div>
         </>
       )}
