@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { isEmpty } from "../Utils";
-import { getPosts } from "../action/post.actions";
 import { timestampParser } from "../Utils";
 import { addComment, getComments } from "../action/comments.action";
+import UpdateDeleteComment from "./UpdateDeleteComment";
 
 // Stockage des commentaires dans => text
 const CardComments = ({ comments, show, id_post }) => {
@@ -58,6 +58,7 @@ const CardComments = ({ comments, show, id_post }) => {
                 <span>{timestampParser(comment.timestamp)}</span>
               </div>
               <p>{comment.text}</p>
+              <UpdateDeleteComment comment={comment} id_post={id_post} />
             </div>
           </div>
         );

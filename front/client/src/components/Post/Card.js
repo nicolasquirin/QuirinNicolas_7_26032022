@@ -76,7 +76,7 @@ const Card = ({ post }) => {
                 />
                 <div className="button-container">
                   <button className="btn" onClick={updateItem}>
-                    valider le modification
+                    valider la modification
                   </button>
                 </div>
               </div>
