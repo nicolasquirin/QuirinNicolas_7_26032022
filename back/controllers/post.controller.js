@@ -3,7 +3,7 @@ const mysqlconnection = require("../config/dbSql");
 //
 // Récupération de tous les posts Utilisateurs
 //
-exports.getAllPosts = (req, res, next) => {
+exports.getAllPosts = (req, res) => {
   mysqlconnection.query("SELECT * FROM `post` WHERE ?", [1], (err, result) => {
     if (err) {
       res.status(404).json({ err });
@@ -41,7 +41,7 @@ exports.getPostPicture = (req, res, next) => {
 //
 // Recupération d'un post utilisateur => localhost:5000/api/post/(n°)
 //
-exports.getOnePost = (req, res, next) => {
+exports.getOnePost = (req, res) => {
   const id = req.params.id;
   console.log();
   mysqlconnection.query(
@@ -61,7 +61,7 @@ exports.getOnePost = (req, res, next) => {
 // Création de post => SI just body Ou body/photo
 //
 
-exports.createPost = async (req, res, next) => {
+exports.createPost = async (req, res) => {
   let { body, file } = req;
 
   if (file === undefined) {
@@ -121,7 +121,7 @@ module.exports.updatePost = (req, res) => {
 //
 // Supression du post de l'utilisateur de la BD SQL => localhost:5000/api/user/userId(N°)
 //
-exports.deletePostById = (req, res, next) => {
+exports.deletePostById = (req, res) => {
   const { id: id_post } = req.params;
 
   mysqlconnection.query(

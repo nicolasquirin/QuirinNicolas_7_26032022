@@ -77,7 +77,6 @@ module.exports.updateComment = (req, res) => {
       }
     );
     console.log(text);
-    console.log(comment_id);
   } catch (err) {
     res.status(500).json({ error: err });
   }
@@ -88,7 +87,8 @@ module.exports.updateComment = (req, res) => {
 //
 
 exports.deleteCommentById = (req, res) => {
-  const comment_id = req.params.id;
+  const { id: comment_id } = req.params;
+  console.log(comment_id);
 
   mysqlconnection.query(
     `DELETE FROM comment WHERE comment_id = ${comment_id}`,

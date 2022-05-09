@@ -105,7 +105,7 @@ const Card = ({ post }) => {
                   alt="commentaires"
                 />
                 <span>
-                  {comments.length === 0 ? "aucun comm" : comments.length}
+                  {comments.length === 0 ? "Pas de commentaire, soyez le premier !" : comments.length}
                 </span>
               </div>
             </div>

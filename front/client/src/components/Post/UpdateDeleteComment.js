@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { UidContext } from "../AppContext";
 import { deleteComment, getComments, updateComment } from "../action/comments.action";
 
-const UpdateDeleteComment = ({ comment, id_post }) => {
+const UpdateDeleteComment = ({ comment }) => {
   const [isAuthor, setIsAuthor] = useState(false);
   const [edit, setEdit] = useState(false);
   const [text, setText] = useState("");
@@ -21,7 +21,7 @@ const UpdateDeleteComment = ({ comment, id_post }) => {
     }
   };
 
-  const handleDelete = () => dispatch(deleteComment(id_post, comment.id_post));
+  const handleDelete = () => dispatch(deleteComment(comment.comment_id));
 
   useEffect(() => {
     const checkAuthor = () => {
@@ -56,6 +56,7 @@ const UpdateDeleteComment = ({ comment, id_post }) => {
               onClick={() => {
                 if (window.confirm("Voulez-vous supprimer ce commentaire ?")) {
                   handleDelete();
+                  dispatch(getComments());
                 }
               }}
             >

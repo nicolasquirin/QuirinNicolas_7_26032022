@@ -1,4 +1,4 @@
-import { DELETE_POST, GET_PICTURE, GET_POSTS, UPDATE_POST } from "../action/post.actions";
+import { DELETE_POST, GET_POSTS, UPDATE_POST } from "../action/post.actions";
 
 const initialState = {};
 

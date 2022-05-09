@@ -10,7 +10,7 @@ const DeleteCard = (props) => {
     <div
       onClick={() => {
         if (
-          window.confirm("Etes-vous sûr de vouloir supprimer votre text ? ")
+          window.confirm("Etes-vous sûr de vouloir supprimer votre publication ? ")
         ) {
           deleteQuote();
         }

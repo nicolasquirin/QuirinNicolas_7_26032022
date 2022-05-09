@@ -24,11 +24,11 @@ export const getComments = () => {
   };
 };
 
-export const addComment = ( id_post, id_user, text) => {
+export const addComment = ( id_post, id_user, text, profil_prenom) => {
 
   return (dispatch) => {
     return axios
-      .post(`${process.env.REACT_APP_API_URL}api/comm/${id_post}`,{ id_user, text})
+      .post(`${process.env.REACT_APP_API_URL}api/comm/${id_post}`,{ id_user, text, profil_prenom})
       .then((res) => {
     
         dispatch({ type: ADD_COMMENT, payload: res.data });
@@ -57,15 +57,15 @@ export const updateComment = (comment_id, text) => {
   };
 };
 
-export const deleteComment = (id_post) => {
+export const deleteComment = (comment_id) => {
   return (dispatch) => {
     return axios({
       method: "delete",
-      url: `${process.env.REACT_APP_API_URL}api/comm/${id_post}`,
+      url: `${process.env.REACT_APP_API_URL}api/comm/${comment_id}`,
     })
       .then((res) => {
-        localStorage.removeItem("id_post");
-        dispatch({ type: DELETE_POST, payload: { id_post } });
+        console.log(res);
+        dispatch({ type: DELETE_POST, payload: { comment_id } });
       })
       .catch((err) => console.log(err));
   };
