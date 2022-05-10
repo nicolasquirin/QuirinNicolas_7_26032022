@@ -2,7 +2,6 @@ import React from "react";
 import axios from "axios";
 
 const Logout = () => {
-  
   const logout = async () => {
     await axios({
       method: "get",
@@ -17,7 +16,7 @@ const Logout = () => {
 
   return (
     <li onClick={logout}>
-      <img src="./img/icons/logout.svg" alt="logout" />
+      <img src="./img/logout3.jpg" alt="logout" />
     </li>
   );
 };

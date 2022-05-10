@@ -5,12 +5,12 @@
   overflow: hidden;
   margin: 58px auto 50px;
   position: relative;
- 
-
+    background-image: url(../../../public/Groupomania/icon2.png); background-repeat: space;
+  
 
   @media screen and(max-width: 990px) {
     grid-template-columns: 60px 1fr;
-    margin: 58px 20px 50px
+    margin: 58px 20px 50px;
   }
 
   @media screen and(max-width: 590px) {
@@ -22,7 +22,7 @@
     .home-header {
       margin: 0 auto 12px;
       text-align: center;
-      
+
       .connection-form {
         background: $color-4;
         border-radius: 20px;
@@ -37,19 +37,19 @@
             cursor: pointer;
             border-radius: 20px;
             padding: 12px 14px;
-            transition: .2s;
+            transition: 0.2s;
             margin: 0 8px;
           }
           .active-btn {
             background: $color-1;
-  
+
             &:hover {
               background: $color-2;
             }
           }
           li:not(.active-btn) {
             &:hover {
-              transform: translateX(3px)
+              transform: translateX(3px);
             }
           }
         }
@@ -60,12 +60,12 @@
             font-size: 1.2rem;
             font-family: $font-2;
             border-radius: 20px;
-  
+
             &:focus {
               box-shadow: 0 0 3px rgba(51, 51, 51, 0.2);
             }
           }
-          input[type=submit] {
+          input[type="submit"] {
             padding: 14px 14px;
             border-radius: 20px;
           }
@@ -79,12 +79,90 @@
     margin: 0px 0 0 14px;
 
     @media screen and(max-width: 990px) {
-      display: none;
+      position: absolute;
+      top: 50px;
     }
-  
+
     .right-side-container {
       position: fixed;
-    
+    }
+
+    .icons {
+      position: fixed;
+      z-index: 10;
+
+      @media screen and(max-width: 590px) {
+        margin: 2px 0 0 -9px;
+      }
+
+      .icons-bis {
+        position: absolute;
+        left: -5px;
+
+        a {
+          transition: 0.1s;
+          display: inline-block;
+
+          &:before {
+            transition: 0.15s ease;
+            transform: scale(0);
+            transform-origin: center;
+            z-index: -10;
+            content: "";
+            height: 45px;
+            width: 45px;
+            position: absolute;
+            background: $color-4;
+            border-radius: 50px;
+          }
+
+          &:hover {
+            transform: scale(1.02);
+          }
+          &:hover::before {
+            transform: scale(1);
+            @media screen and(max-width: 590px) {
+              background: $color-1;
+              height: 34px;
+              width: 34px;
+            }
+          }
+
+          img {
+            @media screen and(max-width: 590px) {
+              height: 34px;
+              width: 34px;
+            }
+          }
+        }
+
+        .active-right-nav {
+          position: relative;
+
+          &::after {
+            content: "";
+            height: 40px;
+            width: 5px;
+            position: absolute;
+            background: $color-1;
+            left: -7px;
+            bottom: 8px;
+            border-radius: 40px;
+            transform: scaleY(0);
+            animation: scale 1.5s ease forwards;
+
+            @keyframes scale {
+              to {
+                transform: scaleY(1);
+              }
+            }
+            @media screen and(max-width: 590px) {
+              height: 33px;
+              left: -8px;
+            }
+          }
+        }
+      }
     }
   }
 }

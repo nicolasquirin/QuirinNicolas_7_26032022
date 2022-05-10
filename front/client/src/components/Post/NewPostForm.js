@@ -42,9 +42,11 @@ const NewPostForm = () => {
   return (
     <div className="post-container">
       <>
-        <NavLink exact="true" to="/profil">
+        <NavLink exact="true" to="/login">
           <div className="user-info">
-            <img src={userData.photo} alt="profil" />
+            <img
+              src={userData.photo} alt="profil"
+            />
           </div>
         </NavLink>
         <div className="post-form">
@@ -76,7 +78,7 @@ const NewPostForm = () => {
           ) : null}
           <div className="footer-form">
             <div className="icon">
-              <img src="./img/icons/picture.svg" alt="envoyer une photo" />
+              <img src="./img/icons/picture.svg" alt="envoyer" />
               <input
                 type="file"
                 id="file-upload"

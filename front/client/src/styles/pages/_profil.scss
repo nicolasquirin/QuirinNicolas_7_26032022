@@ -12,10 +12,23 @@
     grid-template-columns: 60% 40%;
 
     @media screen and(max-width: 885px) {
-      grid-template-columns: 1fr;
+      width: 50%;
     }
   }
 
+  form.upload-pic {
+    @media screen and(max-width: 335px) {
+      .left-part form label {
+        display: none;
+      }
+      input#fille {
+         width: 100px;
+      }
+      input {
+        width: 100px;
+      }
+    }
+  }
   .connection-form {
     border: none;
     background: $color-4;
@@ -101,6 +114,10 @@
   h1 {
     text-align: center;
     margin: 10px 0 6px;
+
+    @media screen and(max-width: 700px) {
+      font-size: medium;
+    }
   }
   .img-container {
     display: grid;
@@ -126,10 +143,12 @@
     height: 100%;
     margin-left: auto;
     margin-right: auto;
-   
 
     @media screen and(max-width: 700px) {
-      grid-template-columns: 1fr;
+      width: 100%;
+    }
+     @media screen and(max-width: 300px) {
+      width: 290px;
     }
 
     > div {
@@ -147,7 +166,7 @@
 
       h3 {
         margin-bottom: 12px;
-        color:#ffd0c4; ;
+        color: #ffd0c4;
       }
 
       img {
@@ -271,7 +290,7 @@
       overflow: auto;
       transform: scaleY(0);
       transform-origin: center;
-      animation: modal .5s forwards;
+      animation: modal 0.5s forwards;
 
       h3 {
         min-width: 200px;

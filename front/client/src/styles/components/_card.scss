@@ -12,8 +12,15 @@
   @media screen and(max-width: 590px) {
     grid-template-columns: 1fr;
   }
+
   @media screen and(max-width: 440px) {
     padding-top: 26px;
+    h3 {
+      top: 2px;
+      font-size: smaller;
+      padding-top: 25px;
+    }
+   
   }
 
   .fa-spinner {

@@ -37,7 +37,6 @@ const Navigate = () => {
             <li>
               <NavLink exact="true" to="/login">
                 <img src="./img/icons/login.svg" alt="login" />
-                <h5>Connexion</h5>
               </NavLink>
             </li>
           </ul>
