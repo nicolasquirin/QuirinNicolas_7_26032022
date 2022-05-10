@@ -89,6 +89,14 @@ const Card = ({ post }) => {
               />
             )}
 
+            {userData.isAdmin === 1 && (
+              <div className="button-container">
+                <div onClick={() => setIsUpdated(!isUpdated)}>
+                  <img src="./img/icons/edit.svg" alt="modification" />
+                </div>
+                <DeleteCard id={post.id_post} />
+              </div>
+            )}
             {userData.id_user === post.id_user && (
               <div className="button-container">
                 <div onClick={() => setIsUpdated(!isUpdated)}>
@@ -105,11 +113,17 @@ const Card = ({ post }) => {
                   alt="commentaires"
                 />
                 <span>
-                  {comments.length === 0 ? "Pas de commentaire, soyez le premier !" : comments.length}
+                  {comments.length === 0
+                    ? "Pas de commentaire, soyez le premier !"
+                    : comments.length}
                 </span>
               </div>
             </div>
-            <CardComments comments={comments} show = {showComments} id_post = {post.id_post} />
+            <CardComments
+              comments={comments}
+              show={showComments}
+              id_post={post.id_post}
+            />
           </div>
         </>
       )}

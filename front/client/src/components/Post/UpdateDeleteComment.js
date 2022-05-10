@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { UidContext } from "../AppContext";
 import { deleteComment, getComments, updateComment } from "../action/comments.action";
 
@@ -8,6 +8,7 @@ const UpdateDeleteComment = ({ comment }) => {
   const [edit, setEdit] = useState(false);
   const [text, setText] = useState("");
   const uid = useContext(UidContext);
+  const userData = useSelector((state) => state.userReducer);
   const dispatch = useDispatch();
 
   const handleEdit = (e) => {
@@ -25,7 +26,7 @@ const UpdateDeleteComment = ({ comment }) => {
 
   useEffect(() => {
     const checkAuthor = () => {
-      if (uid == comment.id_user) {
+      if (uid == comment.id_user || userData.isAdmin === 1) {
         setIsAuthor(true);
       }
     };
@@ -38,10 +39,10 @@ const UpdateDeleteComment = ({ comment }) => {
           <img src="./img/icons/edit.svg" alt="edit-comment" />
         </span>
       )}
-      {isAuthor && edit && (
+      {isAuthor && edit &&  (
         <form action="" onSubmit={handleEdit} className="edit-comment-form">
           <label htmlFor="text" onClick={() => setEdit(!edit)}>
-            Editer
+            Annuler
           </label>
           <br />
           <input
