@@ -84,7 +84,7 @@ module.exports.deleteProfilById = (req, res) => {
   const { id: id_user } = req.params;
 
   mysqlconnection.query(
-    `DELETE FROM profil_users WHERE id_user = ${id_user}`,
+    `DELETE FROM users WHERE id_user = ${id_user}`,
     (error, results) => {
       if (error) {
         res.json({ error });

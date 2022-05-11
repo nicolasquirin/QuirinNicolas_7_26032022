@@ -16,6 +16,15 @@
     }
   }
 
+   button.delete_account {
+    color: red;
+    margin-left: 50%;
+    margin-right: 50%;
+    height: 70px;
+    width: 150px;
+    border-bottom: 2px solid red;
+  }
+
   form.upload-pic {
     @media screen and(max-width: 335px) {
       .left-part form label {
