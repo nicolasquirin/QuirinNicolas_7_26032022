@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import SignInForm from "./SignInForm";
+import { passwordCheck } from "../Utils";
 
 const SignUpForm = () => {
   const [formSubmit, setFormSubmit] = useState(false);
@@ -25,15 +26,25 @@ const SignUpForm = () => {
     passwordConfirmError.innerHTML = "";
     profil_nomError.innerHTML = "";
     profil_prenomError.innerHTML = "";
+    emailError.innerHTML = "";
     termsError.innerHTML = "";
 
     if (password !== controlPassword || !terms.checked) {
       if (password !== controlPassword)
         passwordConfirmError.innerHTML =
           "Les mots de passe ne correspondent pas";
-
       if (!terms.checked)
         termsError.innerHTML = "Veuillez valider les conditions générales";
+      if (!profil_nom) profil_nomError.innerHTML = "Veuillez entrez votre nom";
+      if (!profil_prenom)
+        profil_prenomError.innerHTML = "Veuillez entrez votre prenom";
+      //if (password === false) {
+      //passwordError.innerHTML =
+      //  "Pour votre sécurité le mot de passe doit contenir 8 caractères minimums accompagné d'une majuscule et d'un chiffre";
+      //}
+      if (!email)emailError.innerHTML = "Veuillez entrez un email valide";
+      
+
     } else {
       await axios({
         method: "post",
@@ -45,15 +56,20 @@ const SignUpForm = () => {
           password,
         },
       })
-        .then((res) => {
-          console.log(res);
-          if (res.data.message) {
+        .then((res, err) => {
+          if (res.data) {
             emailError.innerHTML = res.data.message;
-            passwordError.innerHTML = res.data.message;
+           
+
+            if (err) {
+              console.log(res);
+              passwordError.innerHTML = res.status(404);
+            }
           } else {
             setFormSubmit(true);
           }
         })
+
         .catch((err) => console.log(err));
     }
   };

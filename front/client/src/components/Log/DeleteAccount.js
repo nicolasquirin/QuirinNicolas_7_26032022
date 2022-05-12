@@ -18,6 +18,7 @@ const DeleteAccount = () => {
       withCredentials: true,
     })
       .then(() => localStorage.clear())
+      .then(() => localStorage.clearCookie("jwt"))
       .catch((err) => console.log(err));
 
     window.location = "/";

@@ -16,6 +16,7 @@ const Card = ({ post }) => {
   const dispatch = useDispatch();
   const [showComments, setShowComments] = useState(false);
   const _comments = useSelector((state) => state.commentsReducer);
+  
   // Filtre du commentaire => posts
   const comments = (_comments || [])
     .filter((comment) => comment.id_post === post.id_post);

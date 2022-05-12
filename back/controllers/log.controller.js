@@ -28,7 +28,10 @@ module.exports.signUp = (req, res) => {
             res.json({ message: "Email deja enregistré" });
           } else {
             console.log(results);
-            res.json({ message: "Nouvel utilisateur enregistré" });
+            res.json({
+              message:
+                "Felicitation votre compte a bien été créé, vous pouvez vous connecter",
+            });
           }
         }
       );
@@ -81,7 +84,7 @@ module.exports.signIn = (req, res) => {
       } else if (results[0]) {
         res.status(200).json({
           error: true,
-          message: "Votre compte a été désactivé",
+          message: "Votre compte a été suprimé",
         });
       } else if (!results[0]) {
         res.status(200).json({

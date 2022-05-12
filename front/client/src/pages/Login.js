@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import Log from '../components/Log';
 import { UidContext } from "../components/AppContext";
 import UpdateProfile from '../components/Profile/UpdateProfile';
-import DeleteAccount from "../components/Log/DeleteAccount";
 
 
 const Login = () => {
@@ -20,7 +19,6 @@ const Login = () => {
           </div>
         </div>
       )}
-      <DeleteAccount />
     </div>
   );
 };

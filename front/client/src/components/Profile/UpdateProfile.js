@@ -2,10 +2,10 @@ import React from "react";
 import { useSelector } from "react-redux";
 import LeftNav from "../LeftNav";
 import UploadImg from "./UploadImg";
+import DeleteAccount from "../Log/DeleteAccount";
 
 const UpdateProfile = () => {
   const userData = useSelector((state) => state.userReducer);
-  const usersData = useSelector((state) => state.usersReducer);
 
   return (
     <div className="profil-container">
@@ -18,6 +18,7 @@ const UpdateProfile = () => {
           <UploadImg />
         </div>
       </div>
+      <DeleteAccount />
     </div>
   );
 };
