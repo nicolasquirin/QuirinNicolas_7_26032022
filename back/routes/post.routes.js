@@ -5,7 +5,6 @@ const multer = require("../middleware/multer");
 
 // Posts
 
-
 //router.get("/user/:id", postController.getPostUser);
 //router.get("/", postController.getPostPicture);
 router.get("/", postController.getAllPosts);

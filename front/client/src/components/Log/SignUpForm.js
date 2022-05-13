@@ -33,18 +33,16 @@ const SignUpForm = () => {
       if (password !== controlPassword)
         passwordConfirmError.innerHTML =
           "Les mots de passe ne correspondent pas";
+
       if (!terms.checked)
         termsError.innerHTML = "Veuillez valider les conditions générales";
+
       if (!profil_nom) profil_nomError.innerHTML = "Veuillez entrez votre nom";
+
       if (!profil_prenom)
         profil_prenomError.innerHTML = "Veuillez entrez votre prenom";
-      //if (password === false) {
-      //passwordError.innerHTML =
-      //  "Pour votre sécurité le mot de passe doit contenir 8 caractères minimums accompagné d'une majuscule et d'un chiffre";
-      //}
-      if (!email)emailError.innerHTML = "Veuillez entrez un email valide";
-      
 
+      if (!email) emailError.innerHTML = "Veuillez entrez un email valide";
     } else {
       await axios({
         method: "post",
@@ -56,15 +54,11 @@ const SignUpForm = () => {
           password,
         },
       })
-        .then((res, err) => {
-          if (res.data) {
-            emailError.innerHTML = res.data.message;
-           
-
-            if (err) {
-              console.log(res);
-              passwordError.innerHTML = res.status(404);
-            }
+        .then((res) => {
+          if (res.data.message1) {
+            emailError.innerHTML = res.data.message1;
+          } else if (res.data.message2) {
+            passwordError.innerHTML = res.data.message2;
           } else {
             setFormSubmit(true);
           }
@@ -74,7 +68,7 @@ const SignUpForm = () => {
     }
   };
 
-  //Si form Submit est true => affichage de Login a l'utilisateur
+  //Si form Submit est true => affichage Profil utilisateur
   return (
     <>
       {formSubmit ? (

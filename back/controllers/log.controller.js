@@ -24,19 +24,16 @@ module.exports.signUp = (req, res) => {
         user,
         (error, results) => {
           if (error) {
-            console.log(error);
-            res.json({ message: "Email deja enregistré" });
+            res.json({ message1: "Email deja enregistré" });
           } else {
-            console.log(results);
             res.json({
-              message:
-                "Felicitation votre compte a bien été créé, vous pouvez vous connecter",
+              message: "",
             });
           }
         }
       );
     })
-    .catch((error) => res.status(500).json({ error }).send(console.log(error)));
+    .catch((error) => res.status(500).json({ error }));
 };
 //
 //// Selection E-mail dans la base de données Mysql => //localhost:5000/api/user/login
@@ -66,7 +63,6 @@ module.exports.signIn = (req, res) => {
               expiresIn: maxAge,
             });
 
-            // Supression du password pour une invisibilité total coté front-end
             results[0].password;
 
             res.cookie("jwt", token, { httpOnly: true, maxAge });
@@ -79,7 +75,7 @@ module.exports.signIn = (req, res) => {
           }
         } catch (err) {
           console.log(err);
-          return res.status(400).json({ err });
+          return res.status(400).json({message: "sdfvezrg" });
         }
       } else if (results[0]) {
         res.status(200).json({
