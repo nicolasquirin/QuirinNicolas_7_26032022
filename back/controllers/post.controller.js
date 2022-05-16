@@ -1,31 +1,12 @@
 const mysqlconnection = require("../config/dbSql");
+const fs = require("fs");
 
 //
-// Récupération de tous les posts Utilisateurs
+// Récupération de tous les posts en ordre chronologique (id_post => DESC)
 //
 exports.getAllPosts = (req, res) => {
-  mysqlconnection.query("SELECT * FROM `post` WHERE ?", [1], (err, result) => {
-    if (err) {
-      res.status(404).json({ err });
-      throw err;
-    }
-    res.status(200).json(result);
-  });
-};
-
-//
-// Recupération de tous les Posts d'un utilisateur => localhost:5000/api/post/(n°)
-//
-
-/*
-exports.getPostPicture = (req, res, next) => {
-  //const id_user = req.params.id;
-  const { id: id_post } = req.params;
-
-  console.log();
   mysqlconnection.query(
-    `SELECT * FROM picture WHERE id_post = ${id_post}`,
-
+    "SELECT * FROM `post` ORDER BY id_post DESC ",
     (err, result) => {
       if (err) {
         res.status(404).json({ err });
@@ -35,8 +16,6 @@ exports.getPostPicture = (req, res, next) => {
     }
   );
 };
-
-*/
 
 //
 // Recupération d'un post utilisateur => localhost:5000/api/post/(n°)
@@ -95,7 +74,7 @@ exports.createPost = async (req, res) => {
 };
 
 //
-// Modification des données Post de la BD SQL => localhost:5000/api/user/userId(N°)
+// Modification des données Post de la BD SQL => localhost:5000/api/post/userId(N°)
 //
 
 module.exports.updatePost = (req, res) => {
@@ -119,19 +98,22 @@ module.exports.updatePost = (req, res) => {
 };
 
 //
-// Supression du post de l'utilisateur de la BD SQL => localhost:5000/api/user/userId(N°)
+// Supression du post de l'utilisateur de la BD SQL => localhost:5000/api/post/userId(N°)
 //
 exports.deletePostById = (req, res) => {
   const { id: id_post } = req.params;
 
-  mysqlconnection.query(
+  const post = mysqlconnection.query(
     `DELETE FROM post WHERE id_post = ${id_post}`,
     (err, result) => {
       if (err) {
         res.status(404).json({ err });
         throw err;
+      } else {
+        const filename = post.imageUrl.split("/images/")[1];
+        fs.unlink(`images/${filename}`);
+        res.status(200).json(result);
       }
-      res.status(200).json(result);
     }
   );
 };
