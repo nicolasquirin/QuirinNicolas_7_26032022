@@ -1,4 +1,4 @@
-import { DELETE_POST, GET_POSTS, UPDATE_POST } from "../action/post.actions";
+import { DELETE_POST, GET_POSTS, LIKE_POST, UNLIKE_POST, UPDATE_POST } from "../action/post.actions";
 
 const initialState = {};
 
@@ -20,6 +20,26 @@ export default function postReducer(state = initialState, action) {
 
     case DELETE_POST:
       return state.filter((post) => post.id_post !== action.payload.id_post);
+
+    case LIKE_POST:
+      return state.map((post) => {
+        if (post.id_post === action.payload.id_post) {
+          return {
+            ...post,
+          }
+        }
+        return post;
+    })
+
+    case UNLIKE_POST:
+      return state.map((post) => {
+        if (post.id_post === action.payload.id_post) {
+          return {
+            ...post,
+          };
+        }
+        return post;
+      })
 
     default:
       return state;

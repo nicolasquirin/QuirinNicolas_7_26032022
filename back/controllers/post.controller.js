@@ -118,4 +118,39 @@ exports.deletePostById = (req, res) => {
   );
 };
 
-// Likers a derterminé !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//
+// like/unlike Post
+//
+
+exports.likePost = (req, res) => {
+  const { id: id_post } = req.params;
+
+  mysqlconnection.query(
+    `UPDATE post SET likers ="${1}" WHERE id_post = ${id_post}`,
+
+    (err, result) => {
+      if (err) {
+        res.status(404).json({ err });
+        throw err;
+      }
+      res.status(200).json(result);
+      //console.log(result);
+    }
+  );
+};
+
+exports.unlikePost = (req, res) => {
+  const { id: id_post } = req.params;
+
+  mysqlconnection.query(
+    `UPDATE post SET likers ="${0}" WHERE id_post = ${id_post}`,
+
+    (err, result) => {
+      if (err) {
+        res.status(404).json({ err });
+        throw err;
+      }
+      res.status(200).json(result);
+    }
+  );
+};

@@ -2,8 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updatePost } from "../action/post.actions";
 import { dateParser, isEmpty } from "../Utils";
+
 import CardComments from "./CardComments";
 import DeleteCard from "./DeleteCard";
+import LikeButton from "./LikeButton";
 
 //Destructuration de Post
 
@@ -119,6 +121,7 @@ const Card = ({ post }) => {
                     : comments.length}
                 </span>
               </div>
+              <LikeButton post={post}/>
             </div>
             <CardComments
               comments={comments}
