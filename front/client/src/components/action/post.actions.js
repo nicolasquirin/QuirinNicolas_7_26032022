@@ -5,8 +5,8 @@ export const GET_POSTS = "GET_POSTS";
 export const ADD_POST = "ADD_POST";
 export const UPDATE_POST = "UPDATE_POST";
 export const DELETE_POST = "DELETE_POST";
-export const LIKE_POST = "LIKE_POST";
-export const UNLIKE_POST = "UNLIKE_POST";
+export const URGENT_POST = "URGENT_POST";
+export const NOTURGENT_POST = "NOTURGENT_POST";
 
 //const insertId = id_post;
 
@@ -76,7 +76,7 @@ export const deletePost = (id_post) => {
       url: `${process.env.REACT_APP_API_URL}api/post/${id_post}`,
     })
       .then((res) => {
-        localStorage.removeItem("id_post")
+        //localStorage.removeItem("id_post")
         dispatch({ type: DELETE_POST, payload: { id_post} });
       })
       .catch((err) => console.log(err));
@@ -84,33 +84,33 @@ export const deletePost = (id_post) => {
 };
 
 
-export const likePost = (id_post, id_user) => {
+export const urgentPost = (id_post, id_user) => {
   return (dispatch) => {
     return axios({
       method: "patch",
       url:
-        `${process.env.REACT_APP_API_URL}api/post/like-post/${id_post}`,
+        `${process.env.REACT_APP_API_URL}api/post/urgent-post/${id_post}`,
       data: { id: id_user },
     })
       .then((res) => {
         console.log(res);
-        dispatch({ type: LIKE_POST, payload: { id_post, id_user } });
+        dispatch({ type: URGENT_POST, payload: { id_post, id_user } });
       })
       .catch((err) => console.log(err));
   };
 };
 
 
-export const unLikePost = (id_post, id_user) => {
+export const notUrgentPost = (id_post, id_user) => {
   return (dispatch) => {
     return axios({
       method: "patch",
-      url: `${process.env.REACT_APP_API_URL}api/post/unlike-post/` + id_post,
+      url: `${process.env.REACT_APP_API_URL}api/post/noturgent-post/` + id_post,
       data: { id: id_user },
     })
       .then((res) => {
         console.log(res);
-        dispatch({ type: UNLIKE_POST, payload: { id_post, id_user } });
+        dispatch({ type: NOTURGENT_POST, payload: { id_post, id_user } });
       })
       .catch((err) => console.log(err));
   };

@@ -78,7 +78,7 @@ const NewPostForm = () => {
           ) : null}
           <div className="footer-form">
             <div className="icon">
-              <img src="./img/icons/picture.svg" alt="envoyer" />
+              <img src="./img/upload.png" alt="envoyer" />
               <input
                 type="file"
                 id="file-upload"

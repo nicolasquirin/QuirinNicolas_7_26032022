@@ -38,7 +38,7 @@ exports.getCommentById = (req, res) => {
 };
 
 //
-// Création commentaire dans un post // !!!!!!! timestamp a rajouter ainsi que likes= 0 ou 1 !!!!!!!!!!!
+// Création commentaire dans un post 
 //
 
 exports.createComment = (req, res, next) => {

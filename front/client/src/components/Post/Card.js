@@ -2,10 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updatePost } from "../action/post.actions";
 import { dateParser, isEmpty } from "../Utils";
-
 import CardComments from "./CardComments";
 import DeleteCard from "./DeleteCard";
-import LikeButton from "./LikeButton";
+import UrgentButton from "./UrgentButton";
 
 //Destructuration de Post
 
@@ -112,7 +111,7 @@ const Card = ({ post }) => {
               <div className="comment-icon">
                 <img
                   onClick={() => setShowComments(!showComments)}
-                  src="./img/icons/message1.svg"
+                  src="./img/comment.jpg"
                   alt="commentaires"
                 />
                 <span>
@@ -121,7 +120,7 @@ const Card = ({ post }) => {
                     : comments.length}
                 </span>
               </div>
-              <LikeButton post={post}/>
+              <UrgentButton post={post}/>
             </div>
             <CardComments
               comments={comments}

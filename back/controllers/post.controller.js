@@ -109,24 +109,36 @@ exports.deletePostById = (req, res) => {
       if (err) {
         res.status(404).json({ err });
         throw err;
-      } else {
-        const filename = post.imageUrl.split("/images/")[1];
-        fs.unlink(`images/${filename}`);
-        res.status(200).json(result);
       }
     }
   );
 };
 
+/*
+const post = mysqlconnection.query(
+    `DELETE FROM post WHERE id_post = ${id_post}`,
+    (err, result) => {
+      if (err) {
+        res.status(404).json({ err });
+        throw err;
+      } else {
+        //const filename = post.imageUrl.split("/images/")[1];
+        //fs.unlink(`images/${filename}`);
+        //res.status(200).json(result);
+      }
+    }
+  );
+  */
+
 //
-// like/unlike Post
+// urgent/NotUrgent Post
 //
 
-exports.likePost = (req, res) => {
+exports.urgentPost = (req, res) => {
   const { id: id_post } = req.params;
 
   mysqlconnection.query(
-    `UPDATE post SET likers ="${1}" WHERE id_post = ${id_post}`,
+    `UPDATE post SET urgent ="${1}" WHERE id_post = ${id_post}`,
 
     (err, result) => {
       if (err) {
@@ -139,11 +151,11 @@ exports.likePost = (req, res) => {
   );
 };
 
-exports.unlikePost = (req, res) => {
+exports.notUrgentPost = (req, res) => {
   const { id: id_post } = req.params;
 
   mysqlconnection.query(
-    `UPDATE post SET likers ="${0}" WHERE id_post = ${id_post}`,
+    `UPDATE post SET urgent ="${0}" WHERE id_post = ${id_post}`,
 
     (err, result) => {
       if (err) {
