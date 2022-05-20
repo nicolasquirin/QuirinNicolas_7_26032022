@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { deletePost } from "../action/post.actions";
+import { deletePost, getPosts } from "../action/post.actions";
 
 const DeleteCard = (props) => {
   const dispatch = useDispatch();
@@ -10,9 +10,12 @@ const DeleteCard = (props) => {
     <div
       onClick={() => {
         if (
-          window.confirm("Etes-vous sûr de vouloir supprimer votre publication ? ")
+          window.confirm(
+            "Etes-vous sûr de vouloir supprimer votre publication ? "
+          )
         ) {
           deleteQuote();
+          dispatch(getPosts());
         }
       }}
     >

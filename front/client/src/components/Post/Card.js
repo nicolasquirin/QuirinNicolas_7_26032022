@@ -27,6 +27,7 @@ const Card = ({ post }) => {
       dispatch(updatePost(post.id_post, textUpdate));
     }
     setIsUpdated(false);
+    
   };
 
   useEffect(() => {

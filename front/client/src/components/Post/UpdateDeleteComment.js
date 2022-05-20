@@ -1,7 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { UidContext } from "../AppContext";
-import { deleteComment, getComments, updateComment } from "../action/comments.action";
+import {
+  deleteComment,
+  getComments,
+  updateComment,
+} from "../action/comments.action";
 
 const UpdateDeleteComment = ({ comment }) => {
   const [isAuthor, setIsAuthor] = useState(false);
@@ -15,7 +19,7 @@ const UpdateDeleteComment = ({ comment }) => {
     e.preventDefault();
 
     if (text) {
-      dispatch(updateComment( comment.comment_id, text));
+      dispatch(updateComment(comment.comment_id, text));
       setText("");
       setEdit(false);
       dispatch(getComments());
@@ -39,7 +43,7 @@ const UpdateDeleteComment = ({ comment }) => {
           <img src="./img/icons/edit.svg" alt="edit-comment" />
         </span>
       )}
-      {isAuthor && edit &&  (
+      {isAuthor && edit && (
         <form action="" onSubmit={handleEdit} className="edit-comment-form">
           <label htmlFor="text" onClick={() => setEdit(!edit)}>
             Annuler

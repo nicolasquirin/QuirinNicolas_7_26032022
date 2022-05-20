@@ -204,17 +204,6 @@
           flex-direction: column;
         }
 
-        .pseudo {
-          display: flex;
-
-          h3 {
-            font-family: $font-1;
-          }
-          span {
-            transform: translateX(6px);
-          }
-        }
-
         span {
           font-size: 0.9rem;
           font-style: italic;
@@ -223,6 +212,7 @@
       }
       p {
         margin-top: 8px;
+      
       }
       .edit-comment {
         color: $color-2;

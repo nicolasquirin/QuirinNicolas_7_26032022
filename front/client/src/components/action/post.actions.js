@@ -76,7 +76,6 @@ export const deletePost = (id_post) => {
       url: `${process.env.REACT_APP_API_URL}api/post/${id_post}`,
     })
       .then((res) => {
-        //localStorage.removeItem("id_post")
         dispatch({ type: DELETE_POST, payload: { id_post} });
       })
       .catch((err) => console.log(err));
