@@ -24,7 +24,7 @@ const Home = () => {
             <NavLink
               to="/login"
               exact="true"
-              activeClassName="active-right-nav"
+              activeclassname="active-right-nav"
             >
               <img src="./img/icons/user.svg" alt="home" />
             </NavLink>
