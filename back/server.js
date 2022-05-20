@@ -30,7 +30,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-//Route Authentification
+//Route Authentification centralisé
 
 app.get("/jwtid", auth, (req, res) => {
   res.status(200).send(res.locals.user._id);

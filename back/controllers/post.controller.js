@@ -103,32 +103,38 @@ module.exports.updatePost = (req, res) => {
 exports.deletePostById = (req, res) => {
   const { id: id_post } = req.params;
 
-  const post = mysqlconnection.query(
-    `DELETE FROM post WHERE id_post = ${id_post}`,
-    (err, result) => {
-      if (err) {
-        res.status(404).json({ err });
-        throw err;
+  let file = req.file;
+
+  let sqlSelectImage = `SELECT picture FROM post WHERE id_post = ${id_post}`;
+  let sqlDeletePost = `DELETE FROM post WHERE id_post = ${id_post}`;
+
+  const deleteImage = mysqlconnection.query(
+    sqlSelectImage,
+    (error, image) => {
+      if(!error) {
+        if(image[0].picture !== "") {
+          const filename = image[0].picture.split("/images/")[1];
+          fs.unlink(`images/${filename}`, () => {
+
+          });
+        }
+        const deletePost = mysqlconnection.query(sqlDeletePost, (error, result) => {        
+        if (!error) {
+        if (result.affectedRows === 0) {
+          res.status(400).json({ message: "Vous n'êtes pas autorisé à supprimer cette publication !" });
+        } else {
+            res.status(200).json({ message: "La publication a été supprimée !"});
+        }
+          } else {
+           res.status(400).json({ message: "Une erreur est survenue, la publication n'a pas été supprimée" });
+          }
+        });
+      } else {
+         res.status(400).json({ message: "Une erreur est survenue, la publication n'a pas été trouvée" });
       }
     }
   );
 };
-
-/*
-const post = mysqlconnection.query(
-    `DELETE FROM post WHERE id_post = ${id_post}`,
-    (err, result) => {
-      if (err) {
-        res.status(404).json({ err });
-        throw err;
-      } else {
-        //const filename = post.imageUrl.split("/images/")[1];
-        //fs.unlink(`images/${filename}`);
-        //res.status(200).json(result);
-      }
-    }
-  );
-  */
 
 //
 // urgent/NotUrgent Post
