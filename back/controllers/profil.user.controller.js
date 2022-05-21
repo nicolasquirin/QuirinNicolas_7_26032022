@@ -1,4 +1,5 @@
 const mysqlconnection = require("../config/dbSql");
+const fs = require("fs");
 
 //
 // Recupération des données des tous les profils utilisateurs SQL => localhost:5000/api/user
@@ -53,9 +54,7 @@ module.exports.GetUserById = async (req, res) => {
 module.exports.PictureUserById = (req, res) => {
   try {
     let { file } = req.file;
-
     const id = req.params.id;
-
     file = `${req.protocol}://${req.get("host")}/images/${req.file.filename}`;
 
     console.log(req.file.filename);
@@ -83,13 +82,38 @@ module.exports.PictureUserById = (req, res) => {
 module.exports.deleteProfilById = (req, res) => {
   const { id: id_user } = req.params;
 
+  let sqlSelectImage = `SELECT photo FROM users WHERE id_user = ${id_user}`;
+  let sqlDeletePost = `DELETE FROM users WHERE id_user = ${id_user}`;
+
   mysqlconnection.query(
-    `DELETE FROM users WHERE id_user = ${id_user}`,
-    (error, results) => {
-      if (error) {
-        res.json({ error });
+    sqlSelectImage,
+
+    (error, image) => {
+      if (!error) {
+        if (image[0].photo !== "") {
+          const filename = image[0].photo.split("/images/")[1];
+          fs.unlink(`images/${filename}`, () => {});
+        }
+        const deletePost = mysqlconnection.query(
+          sqlDeletePost,
+          (error, result) => {
+            if (!error) {
+              res
+                .status(200)
+                .json({ message: "La publication a été supprimée !" });
+            } else {
+              res.status(400).json({
+                message:
+                  "Une erreur est survenue, la publication n'a pas été supprimée",
+              });
+            }
+          }
+        );
       } else {
-        res.status(200).json({ results });
+        res.status(400).json({
+          message:
+            "Une erreur est survenue, la publication n'a pas été trouvée",
+        });
       }
     }
   );
