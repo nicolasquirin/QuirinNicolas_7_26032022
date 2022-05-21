@@ -6,18 +6,18 @@ import Log from "../components/Log";
 import Thread from "../components/Thread";
 import { NavLink } from "react-router-dom";
 
-const Home = (show) => {
+const Home = () => {
   const uid = useContext(UidContext);
 
-  //Ternaire afin de voir le fil d'actualité que si la condition signin est true
-  return !show ? null : (
+  //Ternaire sur <Tread /> afin de voir le fil d'actualité que si la condition signin est true
+  return (
     <div className="home">
       <LeftNav />
       <div className="main">
         <div className="home-header">
           {uid ? <NewPostForm /> : <Log signin={true} signup={false} />}
         </div>
-        {uid ? <Thread /> : <show signin={true} signup={false} />}
+        <div className="thread">{uid ? <Thread /> : !uid}</div>
       </div>
       <div className="right-side">
         <div className="icons">
