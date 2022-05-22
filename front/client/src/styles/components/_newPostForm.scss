@@ -75,11 +75,6 @@
           @media screen and(max-width: 590px) {
             margin: 0;
           }
-          .pseudo {
-            @media screen and(max-width: 440px) {
-              transform: translateY(-8px);
-            }
-          }
           span {
             @media screen and(max-width: 632px) {
               position: absolute;

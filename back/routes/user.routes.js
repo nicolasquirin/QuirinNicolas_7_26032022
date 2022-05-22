@@ -4,6 +4,8 @@ const auth = require("../middleware/auth.middleware");
 
 const multer = require("../middleware/multer");
 
+//Route Authentification centralisé => server.js
+
 // users SQL DB
 router.get("/", userController.GetAllUsers); //localhost:5000/api/user/
 router.get("/:id", userController.GetUserById);

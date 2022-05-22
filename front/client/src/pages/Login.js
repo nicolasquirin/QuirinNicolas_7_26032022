@@ -7,6 +7,7 @@ import UpdateProfile from '../components/Profile/UpdateProfile';
 const Login = () => {
   const uid = useContext(UidContext);
 
+  //Ternaire < UpdateProfile /> afin de pouvoir editer des messages que si la condition signin est true
   return (
     <div className="profil-page">
       {uid ? (

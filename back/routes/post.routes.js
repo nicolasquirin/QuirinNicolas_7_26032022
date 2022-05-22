@@ -3,6 +3,8 @@ const postController = require("../controllers/post.controller");
 const auth = require("../middleware/auth.middleware");
 const multer = require("../middleware/multer");
 
+//Route Authentification centralisé => server.js
+
 //
 // Posts
 //

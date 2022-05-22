@@ -1,7 +1,7 @@
 import axios from "axios";
-
 export const GET_USER = "GET_USER";
 export const UPLOAD_PICTURE = "UPLOAD_PICTURE";
+
 
 // Envoie des données de l'utilisateur au reducer grace au dispatch
 export const getUser = (uid) => {

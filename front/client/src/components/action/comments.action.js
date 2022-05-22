@@ -15,7 +15,6 @@ export const getComments = () => {
     return axios
       .get(`${process.env.REACT_APP_API_URL}api/comm/`)
       .then((res) => {
-
         dispatch({ type: GET_COMMENTS, payload: res.data });
         console.log();
       })
@@ -24,13 +23,15 @@ export const getComments = () => {
   };
 };
 
-export const addComment = ( id_post, id_user, text, profil_prenom) => {
-
+export const addComment = (id_post, id_user, text, profil_prenom) => {
   return (dispatch) => {
     return axios
-      .post(`${process.env.REACT_APP_API_URL}api/comm/${id_post}`,{ id_user, text, profil_prenom})
+      .post(`${process.env.REACT_APP_API_URL}api/comm/${id_post}`, {
+        id_user,
+        text,
+        profil_prenom,
+      })
       .then((res) => {
-    
         dispatch({ type: ADD_COMMENT, payload: res.data });
 
         return axios;
@@ -41,7 +42,6 @@ export const addComment = ( id_post, id_user, text, profil_prenom) => {
   };
 };
 
-
 export const updateComment = (comment_id, text) => {
   return (dispatch) => {
     return axios({
@@ -50,8 +50,8 @@ export const updateComment = (comment_id, text) => {
       data: { comment_id, text },
     })
       .then((res) => {
-        console.log(res);
-        dispatch({ type: UPDATE_COMMENT, payload: {comment_id, text } });
+        //console.log(res);
+        dispatch({ type: UPDATE_COMMENT, payload: { comment_id, text } });
       })
       .catch((err) => console.log(err));
   };
@@ -64,7 +64,7 @@ export const deleteComment = (comment_id) => {
       url: `${process.env.REACT_APP_API_URL}api/comm/${comment_id}`,
     })
       .then((res) => {
-        console.log(res);
+        //console.log(res);
         dispatch({ type: DELETE_POST, payload: { comment_id } });
       })
       .catch((err) => console.log(err));

@@ -2,6 +2,8 @@ const router = require("express").Router();
 const commController = require("../controllers/comment.controller");
 const auth = require("../middleware/auth.middleware");
 
+//Route Authentification centralisé => server.js
+
 // comments
 router.get("/", commController.getAllComments);
 router.get("/:id", commController.getCommentById);

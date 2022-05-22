@@ -12,9 +12,26 @@ const path = require("path");
 // Utilisation de Mysql Database par defaut pour le projet N°7
 require("./config/dbSql");
 
+//
+//SECURITY OWASP
+//
+
+// assainit les entrées contre les attaques par injection SQL
+const filter = require("content-filter");
+const mongoSanitize = require("express-mongo-sanitize");
+
+// Définit quatre en-têtes, désactivant une grande partie de la mise en cache navigateur côté client
+const nocache = require("nocache");
+
+// Configure de manière appropriée les en-têtes HTTP - Helmet version 4.6.0 / Au dela = (ERR_BLOCKED_BY_RESPONSE)
+const helmet = require("helmet");
+
 const cors = require("cors");
 
 const app = express();
+
+app.use(helmet());
+app.use(nocache());
 
 const corsOptions = {
   origin: process.env.CLIENT_URL,
@@ -30,7 +47,19 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-//Route Authentification centralisé
+app.use(
+  mongoSanitize({
+    replaceWith: "_",
+  })
+);
+let blackList = ["$", "{", "&&", "||"];
+let options = {
+  urlBlackList: blackList,
+  bodyBlackList: blackList,
+};
+app.use(filter(options));
+
+//Route authentification centralisé
 
 app.get("/jwtid", auth, (req, res) => {
   res.status(200).send(res.locals.user._id);

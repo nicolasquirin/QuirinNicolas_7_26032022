@@ -40,24 +40,3 @@ export const isEmpty = (value) => {
     (typeof value === "string" && value.trim().length === 0)
   );
 };
-
-
-export const emailValid = (data) => {
-  if (
-    data.match(
-      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/
-    )
-  ) {
-    return true;
-  } else {
-    return false;
-  }
-};
-
-export const passwordCheck = (data) => {
-  if (/^[A-zÀ-ú0-9.@\s]+$/.test(data)) {
-    return true;
-  } else {
-    return false;
-  }
-};

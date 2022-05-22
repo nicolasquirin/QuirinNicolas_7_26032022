@@ -59,10 +59,8 @@ const UpdateDeleteComment = ({ comment }) => {
           <div className="btn">
             <span
               onClick={() => {
-                if (window.confirm("Voulez-vous supprimer ce commentaire ?")) {
-                  handleDelete();
-                  dispatch(getComments());
-                }
+                handleDelete();
+                dispatch(getComments());
               }}
             >
               <img src="./img/icons/trash.svg" alt="delete" />

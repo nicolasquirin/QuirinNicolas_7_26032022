@@ -8,47 +8,43 @@ export const DELETE_POST = "DELETE_POST";
 export const URGENT_POST = "URGENT_POST";
 export const NOTURGENT_POST = "NOTURGENT_POST";
 
-//const insertId = id_post;
+//
+// CRUD POSTS
+//
 
+// READ
 export const getPosts = () => {
   return (dispatch) => {
     return axios
       .get(`${process.env.REACT_APP_API_URL}api/post/`)
 
       .then((res) => {
- 
-        console.log(res.data);
-        dispatch({ type: GET_POSTS, payload: res.data});
-        
+        //console.log(res.data);
+        dispatch({ type: GET_POSTS, payload: res.data });
       })
       .catch((err) => console.log(err));
   };
 };
 
-//
-//
-//
-
+// CREATE
 
 export const AddPost = (data) => {
   return (dispatch) => {
     return axios
       .post(`${process.env.REACT_APP_API_URL}api/post/`, data)
       .then((res) => {
-        console.log(res);
-        dispatch({ type: ADD_POST, payload: res});
-       
-        return axios
+        //console.log(res);
+        dispatch({ type: ADD_POST, payload: res });
+
+        return axios;
       })
       .catch((err) => {
         console.log(err);
       });
   };
-}
+};
 
-//
-//
-//
+// UPDATE
 
 export const updatePost = (id_post, message) => {
   return (dispatch) => {
@@ -58,16 +54,14 @@ export const updatePost = (id_post, message) => {
       data: { message },
     })
       .then((res) => {
-        console.log(res);
+        //console.log(res);
         dispatch({ type: UPDATE_POST, payload: { message, id_post } });
       })
       .catch((err) => console.log(err));
   };
 };
 
-//
-//
-//
+// DELETE
 
 export const deletePost = (id_post) => {
   return (dispatch) => {
@@ -76,29 +70,28 @@ export const deletePost = (id_post) => {
       url: `${process.env.REACT_APP_API_URL}api/post/${id_post}`,
     })
       .then((res) => {
-        dispatch({ type: DELETE_POST, payload: { id_post} });
+        dispatch({ type: DELETE_POST, payload: { id_post } });
       })
       .catch((err) => console.log(err));
   };
 };
 
+// PATCH
 
 export const urgentPost = (id_post, id_user) => {
   return (dispatch) => {
     return axios({
       method: "patch",
-      url:
-        `${process.env.REACT_APP_API_URL}api/post/urgent-post/${id_post}`,
+      url: `${process.env.REACT_APP_API_URL}api/post/urgent-post/${id_post}`,
       data: { id: id_user },
     })
       .then((res) => {
-        console.log(res);
+        //console.log(res);
         dispatch({ type: URGENT_POST, payload: { id_post, id_user } });
       })
       .catch((err) => console.log(err));
   };
 };
-
 
 export const notUrgentPost = (id_post, id_user) => {
   return (dispatch) => {
@@ -108,7 +101,7 @@ export const notUrgentPost = (id_post, id_user) => {
       data: { id: id_user },
     })
       .then((res) => {
-        console.log(res);
+        //console.log(res);
         dispatch({ type: NOTURGENT_POST, payload: { id_post, id_user } });
       })
       .catch((err) => console.log(err));

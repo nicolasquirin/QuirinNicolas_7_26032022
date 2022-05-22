@@ -1,24 +1,26 @@
 # GROUPOMANIA
 
+## Installation SQL DataBase
+
+- Install XAMPP Multiplateforme package with Apache, MariaDB, PHP, Perl.
+  Or same software :
+  (WAMP – Windows, Apache, MySQL, PHP / MAMP – Mac, Apache, MySQL, PHP / LAMP – Linux, Apache, MySQL, PHP).
+
+- Open Admin page & create new dataBase "mynetwork".
+- Import folder dump.sql in the new dataBase "mynetwork".
+
+---
+
 ## Installation FRONT-END
-
-Here are the dependancies you need to install:
-
--
--
--
 
 On Windows, these installations require to use PowerShell in administrator mode.
 
-Change directory to "front",
+Change directory to "front/client",
 
-## Usage
+Then, run `npm install`.
+After installation, `npm start`.
 
-Run `npm start`. This should both run the local server and launch your browser.
-
-The app should reload automatically when you make a change to a file.
-
-Use `Ctrl+C` in the terminal to stop the local server.
+---
 
 ## Installation BACK-END
 
@@ -27,9 +29,6 @@ On Windows, these installations require to use PowerShell in administrator mode.
 Change directory to "back",
 
 Then, run `npm install`.
+After installation, `npm start`.
 
-## Usage
-
-Run `npm start`.
-This should both run the local server on port 3000.
-Use `Ctrl+C` in the terminal to stop the local server.
+Welcome on baord :)

@@ -14,12 +14,26 @@ const UrgentButton = ({ post }) => {
     if (post.id_user == uid || userData.isAdmin === 1) {
       dispatch(urgentPost(post.id_post, uid));
       setUrgent(true);
+      
+    } else {
+      if (post.id_user !== uid || userData.isAdmin !== 1) {
+        alert(
+          "Seul le titulaire du post ou l'administrateur peut utiliser cette option"
+        );
+      }
     }
+    
   };
   const notUrgent = () => {
     if (post.id_user == uid || userData.isAdmin === 1) {
       dispatch(notUrgentPost(post.id_post, uid));
       setUrgent(false);
+    } else {
+      if (post.id_user !== uid || userData.isAdmin !== 1) {
+        alert(
+          "Seul le titulaire du post ou l'administrateur peut utiliser cette option"
+        );
+      }
     }
   };
 
