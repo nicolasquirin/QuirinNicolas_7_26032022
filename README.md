@@ -6,6 +6,8 @@
   Or same software :
   (WAMP – Windows, Apache, MySQL, PHP / MAMP – Mac, Apache, MySQL, PHP / LAMP – Linux, Apache, MySQL, PHP).
 
+Db - Server version : 10.4.24-MariaDB
+
 - Start Apache & Mysql server on control Panel.
 - Open Admin page & create new dataBase "mynetwork".
 - Import folder dump.sql in the new dataBase "mynetwork".
