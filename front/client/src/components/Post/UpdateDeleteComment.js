@@ -20,9 +20,8 @@ const UpdateDeleteComment = ({ comment }) => {
 
     if (text) {
       dispatch(updateComment(comment.comment_id, text));
-      setText("");
       setEdit(false);
-      dispatch(getComments());
+      dispatch(getComments(comment));
     }
   };
 
@@ -32,10 +31,12 @@ const UpdateDeleteComment = ({ comment }) => {
     const checkAuthor = () => {
       if (uid == comment.id_user || userData.isAdmin === 1) {
         setIsAuthor(true);
+        dispatch(getComments());
       }
     };
     checkAuthor();
-  }, [uid, comment]);
+  }, [uid, comment.id_user]);
+
   return (
     <div className="edit-comment">
       {isAuthor && edit === false && (

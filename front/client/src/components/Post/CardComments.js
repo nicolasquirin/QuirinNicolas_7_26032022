@@ -18,9 +18,9 @@ const CardComments = ({ comments, show, id_post }) => {
     if (text) {
       dispatch(
         addComment(id_post, userData.id_user, text, userData.profil_prenom)
-      );
-      setText("");
-      dispatch(getComments());
+      )
+        .then(() => dispatch(getComments()))
+        .then(() => setText(""));
     }
   };
 

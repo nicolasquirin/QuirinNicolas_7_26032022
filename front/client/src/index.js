@@ -10,6 +10,7 @@ import thunk from "redux-thunk";
 //import logger from "redux-logger";
 import { getUsers } from "./components/action/users.action";
 import { getComments } from "./components/action/comments.action";
+import { getPosts } from "./components/action/post.actions";
 
 const rootElement = document.getElementById("root");
 const root = createRoot(rootElement);
@@ -22,6 +23,7 @@ const store = createStore(
 
 store.dispatch(getUsers());
 store.dispatch(getComments());
+store.dispatch(getPosts());
 
 root.render(
   <Provider store={store}>

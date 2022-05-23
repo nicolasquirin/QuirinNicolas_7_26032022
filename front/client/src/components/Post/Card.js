@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { updatePost } from "../action/post.actions";
+import { getComments } from "../action/comments.action";
+import { getPosts, updatePost } from "../action/post.actions";
 import { dateParser, isEmpty } from "../Utils";
 import CardComments from "./CardComments";
 import DeleteCard from "./DeleteCard";
@@ -17,17 +18,17 @@ const Card = ({ post }) => {
   const dispatch = useDispatch();
   const [showComments, setShowComments] = useState(false);
   const _comments = useSelector((state) => state.commentsReducer);
-  
+
   // Filtre du commentaire => posts
-  const comments = (_comments || [])
-    .filter((comment) => comment.id_post === post.id_post);
+  const comments = (_comments || []).filter(
+    (comment) => comment.id_post === post.id_post
+  );
 
   const updateItem = async () => {
     if (textUpdate) {
       dispatch(updatePost(post.id_post, textUpdate));
     }
     setIsUpdated(false);
-    
   };
 
   useEffect(() => {
@@ -121,7 +122,7 @@ const Card = ({ post }) => {
                     : comments.length}
                 </span>
               </div>
-              <UrgentButton post={post}/>
+              <UrgentButton post={post} />
             </div>
             <CardComments
               comments={comments}

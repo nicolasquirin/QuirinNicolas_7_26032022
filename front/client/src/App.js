@@ -24,7 +24,9 @@ const App = () => {
 
   return (
     <UidContext.Provider value={uid}>
-      <Routes />
+      <React.StrictMode>
+        <Routes />
+      </React.StrictMode>
     </UidContext.Provider>
   );
 };
