@@ -19,13 +19,17 @@ const UpdateDeleteComment = ({ comment }) => {
     e.preventDefault();
 
     if (text) {
-      dispatch(updateComment(comment.comment_id, text));
-      setEdit(false);
-      dispatch(getComments(comment));
+      dispatch(updateComment(comment.comment_id, text))
+        .then(() => dispatch(getComments()))
+        .then(() => setEdit(false));
     }
   };
 
-  const handleDelete = () => dispatch(deleteComment(comment.comment_id));
+  const handleDelete = () =>
+    dispatch(deleteComment(comment.comment_id))
+      .then(() => dispatch(getComments()))
+      .then(() => setEdit(false));
+
 
   useEffect(() => {
     const checkAuthor = () => {

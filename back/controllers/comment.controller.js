@@ -38,7 +38,7 @@ exports.getCommentById = (req, res) => {
 };
 
 //
-// Création commentaire dans un post 
+// Création commentaire dans un post
 //
 
 exports.createComment = (req, res, next) => {
@@ -76,7 +76,7 @@ module.exports.updateComment = (req, res) => {
         }
       }
     );
-    console.log(text);
+    //console.log(text);
   } catch (err) {
     res.status(500).json({ error: err });
   }
