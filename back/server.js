@@ -74,6 +74,6 @@ app.use("/api/post", postRoutes);
 app.use("/api/comm", commentRoutes);
 
 // server
-app.listen(process.env.PORT, () => {
-  console.log(`Listening on port ${process.env.PORT}`);
+app.listen(process.env.API_PORT, () => {
+  console.log(`Listening on port ${process.env.API_PORT}`);
 });

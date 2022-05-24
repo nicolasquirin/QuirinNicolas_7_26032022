@@ -1,6 +1,6 @@
 -- MariaDB dump 10.19  Distrib 10.4.24-MariaDB, for Win64 (AMD64)
 --
--- Host: localhost    Database: mynetwork
+-- Host: localhost    Database: mynetwork2
 -- ------------------------------------------------------
 -- Server version	10.4.24-MariaDB
 
@@ -48,7 +48,8 @@ CREATE TABLE `comment` (
   KEY `profil_prenom_4` (`profil_prenom`),
   KEY `id_user_2` (`id_user`),
   KEY `id_user_3` (`id_user`),
-  CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`id_post`) REFERENCES `post` (`id_post`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `comment_ibfk_1` FOREIGN KEY (`id_post`) REFERENCES `post` (`id_post`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `comment_ibfk_2` FOREIGN KEY (`id_user`) REFERENCES `users` (`id_user`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=222 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -58,7 +59,6 @@ CREATE TABLE `comment` (
 
 LOCK TABLES `comment` WRITE;
 /*!40000 ALTER TABLE `comment` DISABLE KEYS */;
-INSERT INTO `comment` VALUES (172,610,49,'Génial !!!','Kevin','2022-05-09 15:15:53'),(173,610,43,'Tu auras enfin un vrai bureau :) ','Nicolas','2022-05-09 15:17:01'),(174,610,49,'Enfin !!! après 2 ans !','Kevin','2022-05-09 15:19:55'),(175,634,50,'Salut Kevin, l\'adresse se situe route du développeur à Toulouse.','Alissa','2022-05-09 15:36:31');
 /*!40000 ALTER TABLE `comment` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -178,4 +178,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-05-22 14:14:25
+-- Dump completed on 2022-05-24 12:46:57

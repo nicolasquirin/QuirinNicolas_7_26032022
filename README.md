@@ -11,6 +11,14 @@ Db - Server version : 10.4.24-MariaDB
 - Start Apache & Mysql server on control Panel.
 - Open Admin page & create new dataBase "mynetwork".
 - Import folder dump.sql in the new dataBase "mynetwork".
+  // File : sql/dump.sql
+
+## Installation .env
+
+// File: back/config
+
+- Replace the .env_sample by .env
+- Add your favorite Port Number.
 
 ---
 
