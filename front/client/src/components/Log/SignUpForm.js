@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
 import SignInForm from "./SignInForm";
-import { passwordCheck } from "../Utils";
 
 const SignUpForm = () => {
   const [formSubmit, setFormSubmit] = useState(false);
@@ -55,11 +54,12 @@ const SignUpForm = () => {
         },
       })
         .then((res) => {
-          if (res.data.message1) {
-            emailError.innerHTML = res.data.message1;
-          } else if (res.data.message2) {
+          if (res.data.message3) {
+            emailError.innerHTML = res.data.message3;
+          }
+          if (res.data.message2) {
             passwordError.innerHTML = res.data.message2;
-          } else {
+          } else if (!res.data.message3 || res.data.message2) {
             setFormSubmit(true);
           }
         })
