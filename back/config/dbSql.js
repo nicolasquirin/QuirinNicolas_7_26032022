@@ -5,10 +5,10 @@ const mysql = require("mysql");
 
 //Connection a la base de données MySql
 const mysqlconnection = mysql.createConnection({
-  hoste: "localhost",
-  database: "mynetwork",
-  user: "root",
-  password: "",
+  host: "mysql-serverquirin.alwaysdata.net",
+  database: "serverquirin_mysql",
+  user: "281478",
+  password: "Sextormapilon22",
 });
 mysqlconnection.connect((err) => {
   if (err) {
