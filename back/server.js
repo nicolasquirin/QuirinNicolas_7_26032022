@@ -65,6 +65,8 @@ app.get("/jwtid", auth, (req, res) => {
   res.status(200).send(res.locals.user._id);
 });
 
+app.use(express.static(path.join(__dirname + "/public")));
+
 app.use("/images", express.static(path.join(__dirname, "images")));
 
 // Routes => Log - User - Post - Comment

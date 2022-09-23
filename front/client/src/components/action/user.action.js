@@ -2,7 +2,6 @@ import axios from "axios";
 export const GET_USER = "GET_USER";
 export const UPLOAD_PICTURE = "UPLOAD_PICTURE";
 
-
 // Envoie des données de l'utilisateur au reducer grace au dispatch
 export const getUser = (uid) => {
   return (dispatch) => {
@@ -28,7 +27,8 @@ export const uploadPicture = (data, id) => {
               type: UPLOAD_PICTURE,
               payload: res.data.results[0].photo,
             });
-            window.location.href = "/login";
+            window.location.href = "http://localhost:5000/";
+            //window.location.href = "https://quirinnicolas.alwaysdata.net/"; ONLINE
           });
       })
       .catch((err) => console.log(err));
